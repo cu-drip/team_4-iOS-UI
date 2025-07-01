@@ -17,8 +17,7 @@ struct ContentView: View {
         }
         .padding()
         .onAppear() {
-//            var x = 0
-//            print(x)
+            var x = 0
         }
     }
 }

@@ -45,6 +45,11 @@
 			path = SportAppUITests;
 			sourceTree = "<group>";
 		};
+		314FE47D2E145B8D00F03D55 /* .github */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = .github;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +80,7 @@
 		3104229B2E14371C00D64B73 = {
 			isa = PBXGroup;
 			children = (
+				314FE47D2E145B8D00F03D55 /* .github */,
 				310422A62E14371C00D64B73 /* SportApp */,
 				310422B42E14371D00D64B73 /* SportAppTests */,
 				310422BE2E14371D00D64B73 /* SportAppUITests */,
@@ -109,6 +115,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				310422A62E14371C00D64B73 /* SportApp */,
+				314FE47D2E145B8D00F03D55 /* .github */,
 			);
 			name = SportApp;
 			packageProductDependencies = (
