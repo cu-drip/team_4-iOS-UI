@@ -1,0 +1,78 @@
+#!/bin/bash
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+echo "Настройка хука SwiftLint..."
+
+if ! command -v swiftlint &> /dev/null; then
+    echo -e "${RED}SwiftLint не установлен.${NC}"
+    echo -e "Хотите установить его сейчас? (y/n)"
+    read -r install_swiftlint
+    
+    if [[ "$install_swiftlint" =~ ^[Yy]$ ]]; then
+        echo "Установка SwiftLint..."
+        if command -v brew &> /dev/null; then
+            brew install swiftlint
+        else
+            echo -e "${RED}Homebrew не установлен. Пожалуйста, установите SwiftLint вручную:${NC}"
+            echo "Посетите: https://github.com/realm/SwiftLint"
+            exit 1
+        fi
+    else
+        echo -e "${YELLOW}Пожалуйста, установите SwiftLint перед настройкой pre-commit hook.${NC}"
+        exit 1
+    fi
+fi
+
+if [ ! -d .git ]; then
+    echo -e "${RED}Ошибка: Это не git репозиторий. Запустите скрипт из корневой директории вашего git репозитория.${NC}"
+    exit 1
+fi
+
+mkdir -p .git/hooks
+
+cat > .git/hooks/pre-commit << 'EOF'
+#!/bin/bash
+
+SWIFTLINT_PATH=$(which swiftlint)
+
+if [[ -z "${SWIFTLINT_PATH}" ]]; then
+  echo "SwiftLint не установлен. Пожалуйста, установите его с помощью 'brew install swiftlint'"
+  exit 1
+fi
+
+SWIFT_FILES=$(git diff --cached --name-only --diff-filter=d | grep ".swift$")
+
+if [[ -n "$SWIFT_FILES" ]]; then
+  echo "Применение автокоррекции SwiftLint к измененным файлам..."
+  echo "$SWIFT_FILES" | xargs $SWIFTLINT_PATH autocorrect --force
+  
+  echo "$SWIFT_FILES" | xargs git add
+  
+  LINT_ERRORS=$(echo "$SWIFT_FILES" | xargs $SWIFTLINT_PATH lint --quiet)
+  if [[ -n "$LINT_ERRORS" ]]; then
+    echo "⚠️ SwiftLint обнаружил проблемы, которые не могут быть исправлены автоматически:"
+    echo "$LINT_ERRORS"
+    echo "Пожалуйста, исправьте их вручную или используйте флаг --no-verify для обхода проверки"
+    exit 1
+  else
+    echo "✅ Все проверки SwiftLint пройдены успешно!"
+  fi
+else
+  echo "Нет Swift файлов для проверки."
+fi
+
+exit 0
+EOF
+
+chmod +x .git/hooks/pre-commit
+
+echo -e "${GREEN} Хук SwiftLint успешно настроен!${NC}"
+echo -e "Он будет автоматически запускаться при каждом коммите."
+echo -e "${YELLOW}Для ручной проверки работы хука выполните следующие действия:${NC}"
+echo -e "1. Добавьте в рандомный файл лишние пробелы, пустые строки или другие нарушения стиля"
+echo -e "2. Попробуйте закоммитить это чудо"
+echo -e "3. Убедитесь, что хук автоматически исправил форматирование или предотвратил коммит с ошибкой автоформатирования."
