@@ -16,5 +16,9 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+        .onAppear() {
+            var x = 0
+            print(x)
+        }
     }
 }
