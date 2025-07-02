@@ -40,7 +40,7 @@ struct HomeView: View {
                 EmptyView()
             }
             .tabItem {
-                Label("Карта", systemImage: "map.fill")
+                Label("Профиль", systemImage: "map.fill")
             }
             .tag(1)
         }
