@@ -17,21 +17,34 @@ struct RegistrationView: View {
                 .padding(.top, 16)
             
             VStack {
-                Text("RegistrationView")
+                Text("Кем будешь, путник?")
+                    .padding(16)
                 
-                Button(action: {
-                    coordinator.presentSheet(.registration)
-                    coordinator.whoAreYou = .user
-                }, label: {
-                    Text("user")
-                })
-                
-                Button(action: {
-                    coordinator.presentSheet(.registration)
-                    coordinator.whoAreYou = .admin
-                }, label: {
-                    Text("admin")
-                })
+                VStack {
+                    Button(action: {
+                        coordinator.presentSheet(.registration)
+                        coordinator.whoAreYou = .user
+                    }, label: {
+                        Text("user")
+                            .font(.title)
+                            .frame(width: 100, height: 40)
+                            .foregroundColor(.black)
+                            .background(Color.red)
+                            .cornerRadius(12)
+                    })
+                    
+                    Button(action: {
+                        coordinator.presentSheet(.registration)
+                        coordinator.whoAreYou = .admin
+                    }, label: {
+                        Text("admin")
+                            .font(.title)
+                            .frame(width: 100, height: 40)
+                            .foregroundColor(.black)
+                            .background(Color.red)
+                            .cornerRadius(12)
+                    })
+                }
                 
                 Spacer()
                     .frame(height: 200)
