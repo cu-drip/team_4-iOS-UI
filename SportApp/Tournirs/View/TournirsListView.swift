@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct TournirsListView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -16,8 +16,5 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
-        .onAppear() {
-            var x = 0
-        }
     }
 }
