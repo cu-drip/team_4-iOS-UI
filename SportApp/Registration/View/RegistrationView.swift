@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RegistrationView: View {
     @EnvironmentObject var coordinator: Coordinator
-//    @Binding var isAuthenticated: Bool
     
     var body: some View {
         VStack {

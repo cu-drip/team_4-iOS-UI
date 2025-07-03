@@ -8,12 +8,21 @@
 import SwiftUI
 
 struct TournirsListView: View {
+    @EnvironmentObject var coordinator: Coordinator
+    @EnvironmentObject var viewModel: TournirsViewModel
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Scatual()
+                .padding(.top, 16)
+            
+            ScrollView {
+                ForEach(viewModel.tournirs, id: \.id) { tournir in
+                    TournirCell(tournir: tournir)
+                        .padding(16)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding()
     }
