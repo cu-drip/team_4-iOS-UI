@@ -13,4 +13,11 @@ struct Admin: Identifiable, Hashable, Codable {
     var phone: String
     var password: String
     var email: String?
+    var dateOfBirth: Date?
+    var age: Int?
+    var sexIsMan: Bool?
+    var weight: Double?
+    var height: Double?
+    var mmr: Double?
+    var bio: String?
 }

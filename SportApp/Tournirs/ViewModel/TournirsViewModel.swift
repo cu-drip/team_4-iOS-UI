@@ -13,7 +13,7 @@ class TournirsViewModel: ObservableObject {
     @Published var tournirs: [Tournir] = []
     
     init() {
-        loadMockTournirs()
+        tournirs = loadMockTournirs()
         //loadTournirs()
     }
     
@@ -22,7 +22,7 @@ class TournirsViewModel: ObservableObject {
             do {
                 tournirs = try await fetchTournirs()
             } catch {
-                tournirs = []
+                tournirs = loadMockTournirs()
             }
         }
     }
@@ -37,17 +37,17 @@ class TournirsViewModel: ObservableObject {
         )
 
         let mappedEvents = tournirResponses.map { dto -> Tournir in
-            Tournir(title: dto.title, description: dto.description, sport: dto.sport, type_group: .round_robin, start_time: Date(), created_at: Date(), entry_cost: 1500.0, is_team_based: true, max_participants: 16, organizer_id: UUID())
+            Tournir(title: dto.title, description: dto.description, sport: dto.sport, type_group: .round_robin, start_time: Date(), created_at: Date(), entry_cost: Double(dto.entryCost) ?? 0, is_team_based: true, max_participants: Int(dto.maxParticipants) ?? 0, organizer_id: UUID())
         }
         return mappedEvents
     }
     
-    func loadMockTournirs() {
-        tournirs = [
+    func loadMockTournirs() -> [Tournir] {
+        let x = [
                 Tournir(
                     title: "Чемпионат Москвы по футболу",
                     description: "Открытый турнир среди любительских команд",
-                    sport: "Футбол",
+                    sport: "Football",
                     type_group: .round_robin,
                     start_time: Date().addingTimeInterval(86400 * 7), // через неделю
                     created_at: Date(),
@@ -59,7 +59,7 @@ class TournirsViewModel: ObservableObject {
                 Tournir(
                     title: "Кубок чемпионов по шахматам",
                     description: "Турнир с участием профессиональных игроков",
-                    sport: "Шахматы",
+                    sport: "Chess",
                     type_group: .olympic,
                     start_time: Date().addingTimeInterval(86400 * 3), // через 3 дня
                     created_at: Date().addingTimeInterval(-86400 * 2),
@@ -71,7 +71,7 @@ class TournirsViewModel: ObservableObject {
                 Tournir(
                     title: "Летний теннисный кубок",
                     description: "Ежегодный турнир среди любителей и профессионалов",
-                    sport: "Теннис",
+                    sport: "Tennis",
                     type_group: .swiss,
                     start_time: Date().addingTimeInterval(86400 * 10),
                     created_at: Date().addingTimeInterval(-86400 * 5),
@@ -83,7 +83,7 @@ class TournirsViewModel: ObservableObject {
                 Tournir(
                     title: "Киберспорт-чемпионат по Dota 2",
                     description: "Онлайн-турнир для киберспортивных команд",
-                    sport: "Киберспорт",
+                    sport: "CuberSpurt",
                     type_group: .round_robin,
                     start_time: Date().addingTimeInterval(86400 * 14),
                     created_at: Date().addingTimeInterval(-86400 * 10),
@@ -95,7 +95,7 @@ class TournirsViewModel: ObservableObject {
                 Tournir(
                     title: "Баскетбольная лига стартапов",
                     description: "Соревнование между командами IT-компаний",
-                    sport: "Баскетбол",
+                    sport: "Basketball",
                     type_group: .olympic,
                     start_time: Date().addingTimeInterval(86400 * 5),
                     created_at: Date().addingTimeInterval(-86400 * 3),
@@ -105,5 +105,6 @@ class TournirsViewModel: ObservableObject {
                     organizer_id: UUID()
                 )
             ]
+        return x
     }
 }

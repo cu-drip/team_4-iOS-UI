@@ -19,6 +19,7 @@ struct Tournir: Codable, Identifiable, Hashable {
     var is_team_based: Bool
     var max_participants: Int
     var organizer_id: UUID
+    var users: [User] = []
 }
 
 enum TypeTournir: Codable, Identifiable, Hashable {

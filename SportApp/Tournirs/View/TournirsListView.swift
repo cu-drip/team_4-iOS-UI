@@ -21,8 +21,7 @@ struct TournirsListView: View {
                     TournirCell(tournir: tournir)
                         .padding(16)
                         .onTapGesture {
-                            coordinator.currentTournir = tournir
-                            coordinator.presentSheet(.detail)
+                            coordinator.tournirListPath.append(tournir)
                         }
                 }
             }

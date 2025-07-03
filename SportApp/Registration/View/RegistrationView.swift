@@ -16,7 +16,7 @@ struct RegistrationView: View {
                 .padding(.top, 16)
             
             VStack {
-                Text("Кто вы?")
+                Text("Кто ты, воин?")
                     .font(.system(size: 24, weight: .semibold))
                     .padding(16)
                 

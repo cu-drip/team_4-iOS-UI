@@ -13,4 +13,22 @@ struct User: Identifiable, Hashable, Codable {
     var phone: String
     var password: String
     var email: String?
+    var dateOfBirth: Date?
+    var age: Int?
+    var sexIsMan: Bool?
+    var weight: Double?
+    var height: Double?
+    var mmr: Double?
+    var bio: String?
+}
+
+enum UserCodingKeys: String {
+    case email
+    case dateOfBirth
+    case age
+    case sexIsMan
+    case weight
+    case height
+    case mmr
+    case bio
 }
