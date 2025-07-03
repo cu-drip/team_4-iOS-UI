@@ -21,6 +21,10 @@ struct TournirsListView: View {
                     TournirCell(tournir: tournir)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 3)
+                        .onTapGesture {
+                            coordinator.currentTournir = tournir
+                            coordinator.presentSheet(.detail)
+                        }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

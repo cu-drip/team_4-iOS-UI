@@ -55,6 +55,9 @@ struct HomeView: View {
         case .registration:
             RegistrationShieldView(isAuthenticated: $isAuthenticated)
                 .environmentObject(coordinator)
+        case .detail:
+            TournirsDetail(tournir: coordinator.currentTournir ?? Tournir(title: "нету", description: "точно", sport: "", type_group: .olympic, start_time: Date(), created_at: Date(), entry_cost: 0, is_team_based: false, max_participants: 0, organizer_id: UUID()))
+                .environmentObject(coordinator)
         }
     }
 }
