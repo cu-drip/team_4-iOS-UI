@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var coordinator = Coordinator()
+    @StateObject var viewModelOfTournirs = TournirsViewModel()
     @State var isAuthenticated: Bool = false
     
     var body: some View {
@@ -30,6 +31,8 @@ struct HomeView: View {
         TabView {
             NavigationStack() {
                 TournirsListView()
+                    .environmentObject(coordinator)
+                    .environmentObject(viewModelOfTournirs)
             }
             .tabItem {
                 Label("Главная", systemImage: "house.fill")
