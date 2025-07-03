@@ -31,6 +31,7 @@ struct RegistrationView: View {
                             .foregroundColor(.black)
                             .background(Color.white)
                             .cornerRadius(22)
+                            .padding(.bottom, 5)
                     })
                     
                     Button(action: {
@@ -43,6 +44,7 @@ struct RegistrationView: View {
                             .foregroundColor(.black)
                             .background(Color.white)
                             .cornerRadius(22)
+                            .padding(.bottom, 5)
                     })
                 }
                 

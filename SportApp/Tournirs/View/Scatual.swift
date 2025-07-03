@@ -11,7 +11,7 @@ public struct Scatual: View {
     public var body: some View {
         Text("Motive")
             .foregroundColor(Color(red: 5/255, green: 64/255, blue: 242/255))
-            .font(.custom("RobotoMono-Medium", size: 40))
+            .font(.system(size: 40, weight: .semibold))
             .lineLimit(1)
             .frame(height: 40)
             .padding(16)

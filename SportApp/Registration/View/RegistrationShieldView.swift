@@ -11,8 +11,10 @@ struct RegistrationShieldView: View {
     @EnvironmentObject var coordinator: Coordinator
     @Binding var isAuthenticated: Bool
     
+    @State var phio: String = ""
     @State var phoneNuber: String = ""
     @State var password: String = ""
+    @State var passwordCheck: String = ""
     @State var isLogInPressed = false
     
     var body: some View {
@@ -32,25 +34,44 @@ struct RegistrationShieldView: View {
             VStack {
                 if !isLogInPressed {
                     Text("Войти в аккаунт")
+                        .font(.system(size: 24, weight: .semibold))
+                        .padding(16)
                 } else {
                     Text("Регистрация")
+                        .font(.system(size: 24, weight: .semibold))
+                        .padding(16)
                 }
                 
-                TextField("Номер телефона", text: $phoneNuber)
-                    .padding()
-                    .frame(width: 400, height: 50)
-                    .border(Color.black)
-                
-                SecureField("Введите пароль", text: $password)
-                    .padding()
-                    .frame(width: 400, height: 50)
-                    .border(Color.black)
-                
                 if isLogInPressed {
-                    TextField("Подтвердите пароль", text: $phoneNuber)
+                    TextField(" ФИО", text: $phio)
                         .padding()
                         .frame(width: 400, height: 50)
-                        .border(Color.black)
+                        .background(.white)
+                        .cornerRadius(22)
+                        .padding(.bottom, 5)
+                }
+                
+                TextField(" Номер телефона", text: $phoneNuber)
+                    .padding()
+                    .frame(width: 400, height: 50)
+                    .background(.white)
+                    .cornerRadius(22)
+                    .padding(.bottom, 5)
+                
+                SecureField(" Введите пароль", text: $password)
+                    .padding()
+                    .frame(width: 400, height: 50)
+                    .background(.white)
+                    .cornerRadius(22)
+                    .padding(.bottom, 5)
+                
+                if isLogInPressed {
+                    TextField(" Подтвердите пароль", text: $passwordCheck)
+                        .padding()
+                        .frame(width: 400, height: 50)
+                        .background(.white)
+                        .cornerRadius(22)
+                        .padding(.bottom, 5)
                 }
                 
                 if !isLogInPressed {
@@ -61,30 +82,44 @@ struct RegistrationShieldView: View {
                     })
                 } else {
                     Button(action: {
-                        dismiss()
+                        if password == passwordCheck {
+                            dismiss()
+                        }
                     }, label: {
                         Text("Зарегестрировать")
                     })
                 }
                 
-                Button(action: {
-                    isLogInPressed.toggle();
-                }, label: {
-                    Text("Зарегестрироваться")
-                        .padding()
-                })
+                if !isLogInPressed {
+                    Button(action: {
+                        isLogInPressed.toggle();
+                    }, label: {
+                        Text("Зарегестрироваться")
+                            .padding()
+                    })
+                } else {
+                    Button(action: {
+                        isLogInPressed.toggle();
+                    }, label: {
+                        Text("Войти")
+                            .padding()
+                    })
+                }
+                
+                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .background(Color(red: 248/255, green: 247/255, blue: 255/255))
     }
     
     
     func dismiss() {
         switch coordinator.whoAreYou {
         case .user:
-            coordinator.user = User(phone: phoneNuber, password: password)
+            coordinator.user = User(phio: phio, phone: phoneNuber, password: password)
         case .admin:
-            coordinator.admin = Admin(phone: phoneNuber, password: password)
+            coordinator.admin = Admin(phio: phio, phone: phoneNuber, password: password)
         case .none:
             break
         }

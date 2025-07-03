@@ -11,6 +11,13 @@ struct TournirCell: View {
     var tournir: Tournir
     
     var body: some View {
-        Text(tournir.title)
+        VStack {
+            Text(tournir.title)
+        }
+        .frame(width:400, height: 100)
+        .background(.white)
+        .cornerRadius(22)
+        //.border(.red)
+        //.background(.white)
     }
 }
