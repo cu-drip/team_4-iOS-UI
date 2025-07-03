@@ -7,11 +7,14 @@
 
 enum ModalSheet: Identifiable {
     case registration
+    case detail
     
     var id: Int {
         switch self {
         case .registration:
             return 0
+        case .detail:
+            return 1
         }
     }
 }

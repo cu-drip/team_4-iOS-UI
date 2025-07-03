@@ -13,6 +13,7 @@ class Coordinator: ObservableObject {
     @Published var whoAreYou: Appointment?
     @Published var user: User?
     @Published var admin: Admin?
+    @Published var currentTournir: Tournir?
     
     func presentSheet(_ sheet: ModalSheet) {
         presentedSheet = sheet
@@ -20,5 +21,6 @@ class Coordinator: ObservableObject {
     
     func dismissSheet() {
         presentedSheet = nil
+        currentTournir = nil
     }
 }

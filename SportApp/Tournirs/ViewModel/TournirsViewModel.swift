@@ -13,8 +13,8 @@ class TournirsViewModel: ObservableObject {
     @Published var tournirs: [Tournir] = []
     
     init() {
-        //loadMockTournirs()
-        loadTournirs()
+        loadMockTournirs()
+        //loadTournirs()
     }
     
     func loadTournirs() {

@@ -20,6 +20,10 @@ struct TournirsListView: View {
                 ForEach(viewModel.tournirs, id: \.id) { tournir in
                     TournirCell(tournir: tournir)
                         .padding(16)
+                        .onTapGesture {
+                            coordinator.currentTournir = tournir
+                            coordinator.presentSheet(.detail)
+                        }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
