@@ -9,24 +9,29 @@ import SwiftUI
 
 struct TournirsDetail: View {
     @EnvironmentObject var coordinator: Coordinator
-    var tournir: Tournir
     
     var body: some View {
         VStack {
             VStack {
-                Text(tournir.title)
+                Text(coordinator.currentTournir!.title)
                 
-                Text(tournir.description)
+                Text(coordinator.currentTournir!.description)
             }
             
-            Button(action: {
-                coordinator.currentSport = Sport.fromString(tournir.sport)
-                coordinator.presentSheet(.registrationToTournir)
-                coordinator.currentTournir = tournir
-            }, label: {
-                Text("Зарегестрироваться")
-                    .padding()
-            })
+            if coordinator.whoAreYou == .user {
+                if !coordinator.currentTournir!.users.contains(where: { $0.id == coordinator.user!.id }) {
+                    Button(action: {
+                        coordinator.currentSport = Sport.fromString(coordinator.currentTournir!.sport)
+                        coordinator.presentSheet(.registrationToTournir)
+                    }, label: {
+                        Text("Зарегестрироваться")
+                            .padding()
+                    })
+                } else {
+                    Text("Зарегестрироваться")
+                        .padding()
+                }
+            }
             //.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         //.toolbar(.hidden, for: .tabBar)

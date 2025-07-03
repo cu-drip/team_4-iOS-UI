@@ -22,6 +22,7 @@ struct TournirsListView: View {
                         .padding(.horizontal, 16)
                         .padding(.vertical, 3)
                         .onTapGesture {
+                            coordinator.currentTournir = tournir
                             coordinator.tournirListPath.append(tournir)
                         }
                 }
