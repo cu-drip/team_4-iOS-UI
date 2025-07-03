@@ -19,7 +19,8 @@ struct TournirsListView: View {
             ScrollView {
                 ForEach(viewModel.tournirs, id: \.id) { tournir in
                     TournirCell(tournir: tournir)
-                        .padding(16)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 3)
                         .onTapGesture {
                             coordinator.tournirListPath.append(tournir)
                         }
@@ -27,6 +28,6 @@ struct TournirsListView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding()
+        .background(Color(red: 248/255, green: 247/255, blue: 255/255))
     }
 }
