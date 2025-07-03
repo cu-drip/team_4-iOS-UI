@@ -13,6 +13,7 @@ struct RegistrationShieldView: View {
     
     @State var phoneNuber: String = ""
     @State var password: String = ""
+    @State var isLogInPressed = false
     
     var body: some View {
         VStack {
@@ -29,22 +30,48 @@ struct RegistrationShieldView: View {
             }
             
             VStack {
-                Text("Войти в аккаунт")
+                if !isLogInPressed {
+                    Text("Войти в аккаунт")
+                } else {
+                    Text("Регистрация")
+                }
                 
                 TextField("Номер телефона", text: $phoneNuber)
                     .padding()
                     .frame(width: 400, height: 50)
                     .border(Color.black)
                 
-                SecureField("Пароль", text: $password)
+                SecureField("Введите пароль", text: $password)
                     .padding()
                     .frame(width: 400, height: 50)
                     .border(Color.black)
                 
+                if isLogInPressed {
+                    TextField("Подтвердите пароль", text: $phoneNuber)
+                        .padding()
+                        .frame(width: 400, height: 50)
+                        .border(Color.black)
+                }
+                
+                if !isLogInPressed {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Text("Войти")
+                    })
+                } else {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Text("Зарегестрировать")
+                    })
+                }
+                
                 Button(action: {
-                    dismiss()
+                    isLogInPressed.toggle();
                 }, label: {
-                    Text("Войти")
+                    Text("Зарегестрироваться")
+                        .padding()
                 })
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

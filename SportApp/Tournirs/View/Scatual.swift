@@ -9,22 +9,11 @@ import SwiftUI
 
 public struct Scatual: View {
     public var body: some View {
-        HStack {
-            Text("Ж")
-                .foregroundColor(.red)
-            
-            Text("Ы")
-                .foregroundColor(.blue)
-            
-            Text("Ж")
-                .foregroundColor(.red)
-            
-            Text("А")
-                .foregroundColor(.red)
-        }
-        .font(.system(size: 40, weight: .bold))
-        .lineLimit(1)
-        .frame(height: 40)
-        .padding(16)
+        Text("Motive")
+            .foregroundColor(Color(red: 5/255, green: 64/255, blue: 242/255))
+            .font(.custom("RobotoMono-Medium", size: 40))
+            .lineLimit(1)
+            .frame(height: 40)
+            .padding(16)
     }
 }
