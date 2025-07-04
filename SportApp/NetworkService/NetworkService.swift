@@ -51,12 +51,6 @@ final class NetworkService {
             }
         }
         
-//        let url1 = URL(string: "http://localhost:8080/api/vacancies/")!
-//
-//        var request = URLRequest(url: url1)
-//        request.httpMethod = "GET"
-        
-        
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
         guard let httpResponse = response as? HTTPURLResponse else {
