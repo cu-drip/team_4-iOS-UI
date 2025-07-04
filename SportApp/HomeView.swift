@@ -50,7 +50,7 @@ struct HomeView: View {
                 EmptyView()
             }
             .tabItem {
-                Label("Профиль", systemImage: "map.fill")
+                Label("Профиль", systemImage: "person.crop.circle")
             }
             .tag(1)
         }
