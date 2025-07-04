@@ -45,8 +45,8 @@ class TournirsViewModel: ObservableObject {
     func loadMockTournirs() -> [Tournir] {
         let x = [
                 Tournir(
-                    title: "Чемпионат Москвы по футболу",
-                    description: "Открытый турнир среди любительских команд",
+                    title: "Турнир Траекторий",
+                    description: "Турнир по мини-футболу в формате 1 на 1 проводится среди студентов в рамках внутриуниверситетских спортивных мероприятий. Цель — популяризация активного образа жизни и развитие навыков индивидуальной игры: контроля мяча, скорости реакции и точности завершения атак.",
                     sport: "Football",
                     type_group: .round_robin,
                     start_time: Date().addingTimeInterval(86400 * 7), // через неделю
