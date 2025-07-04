@@ -12,11 +12,30 @@ struct TournirsDetail: View {
     
     var body: some View {
         VStack {
-            VStack {
-                Text(coordinator.currentTournir!.title)
-                
-                Text(coordinator.currentTournir!.description)
-            }
+            Text(coordinator.currentTournir!.title)
+                .font(.system(size: 20, weight: .bold))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 20)
+                .padding(.horizontal, 10)
+                .padding(.bottom, 10)
+            Text(coordinator.currentTournir!.description)
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+                .padding(.bottom, 10)
+            
+            Text("Вид Спорта")
+                .font(.system(size: 20, weight: .bold))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+                .padding(.bottom, 1)
+            Text(coordinator.currentTournir!.sport)
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+                .padding(.bottom, 10)
             
             if coordinator.whoAreYou == .user {
                 if !coordinator.currentTournir!.users.contains(where: { $0.id == coordinator.user!.id }) {
@@ -31,6 +50,8 @@ struct TournirsDetail: View {
                         .padding()
                 }
             }
+            Spacer()
         }
+        .padding(.top, 0)
     }
 }
