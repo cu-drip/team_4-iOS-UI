@@ -25,7 +25,7 @@ struct RegistrationView: View {
                         coordinator.presentSheet(.registration)
                         coordinator.whoAreYou = .user
                     }, label: {
-                        Text("Пользователь")
+                        Text("Участник")
                             .font(.system(size: 22))
                             .frame(width: 400, height: 50)
                             .foregroundColor(.black)

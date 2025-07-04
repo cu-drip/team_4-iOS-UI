@@ -83,7 +83,7 @@ class TournirsViewModel: ObservableObject {
                 Tournir(
                     title: "Киберспорт-чемпионат по Dota 2",
                     description: "Онлайн-турнир для киберспортивных команд",
-                    sport: "CuberSpurt",
+                    sport: "CyberSport",
                     type_group: .round_robin,
                     start_time: Date().addingTimeInterval(86400 * 14),
                     created_at: Date().addingTimeInterval(-86400 * 10),
@@ -93,7 +93,7 @@ class TournirsViewModel: ObservableObject {
                     organizer_id: UUID()
                 ),
                 Tournir(
-                    title: "Баскетбольная лига стартапов",
+                    title: "Баскетбольная лига стартапов 12345678901234567890",
                     description: "Соревнование между командами IT-компаний",
                     sport: "Basketball",
                     type_group: .olympic,
