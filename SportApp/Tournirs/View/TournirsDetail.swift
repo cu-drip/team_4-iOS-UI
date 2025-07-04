@@ -21,7 +21,6 @@ struct TournirsDetail: View {
             if coordinator.whoAreYou == .user {
                 if !coordinator.currentTournir!.users.contains(where: { $0.id == coordinator.user!.id }) {
                     Button(action: {
-                        coordinator.currentSport = Sport.fromString(coordinator.currentTournir!.sport)
                         coordinator.presentSheet(.registrationToTournir)
                     }, label: {
                         Text("Зарегестрироваться")

@@ -13,8 +13,26 @@ struct TournirsListView: View {
 
     var body: some View {
         VStack {
-            Scatual()
-                .padding(.top, 16)
+            HStack {
+                if coordinator.whoAreYou == .admin {
+                    Text("   ")
+                        .padding(16)
+                }
+                
+                Scatual()
+                    .frame(maxWidth: .infinity)
+                
+                if coordinator.whoAreYou == .admin {
+                    Button(action: {
+                        print(0)
+                    }, label: {
+                        Image(systemName: "plus")
+                            .padding(16)
+                            .foregroundColor(.black)
+                    })
+                }
+            }
+            .padding(.top, 16)
             
             ScrollView {
                 ForEach(viewModel.tournirs, id: \.id) { tournir in
