@@ -66,6 +66,10 @@ struct HomeView: View {
             TournirRegistration()
                 .environmentObject(coordinator)
                 .environmentObject(viewModelOfTournirs)
+        case .tounirMaker:
+            TournirMaker()
+                .environmentObject(coordinator)
+                .environmentObject(viewModelOfTournirs)
         }
     }
 }

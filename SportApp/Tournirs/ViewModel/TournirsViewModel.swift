@@ -13,8 +13,8 @@ class TournirsViewModel: ObservableObject {
     @Published var tournirs: [Tournir] = []
     
     init() {
-        tournirs = loadMockTournirs()
-        //loadTournirs()
+        //tournirs = loadMockTournirs()
+        loadTournirs()
     }
     
     func loadTournirs() {
@@ -30,14 +30,21 @@ class TournirsViewModel: ObservableObject {
     func fetchTournirs() async throws -> [Tournir] {
         let tournirEndpoint = TournirEndpoint()
         let tournirRequest = TournirRequest()
+        
+        var tournirResponses = [TournirDTO]()
 
-        let tournirResponses: [TournirDTO] = try await NetworkService.shared.request(
-            endpoint: tournirEndpoint,
-            requestDTO: tournirRequest
-        )
-
+        do {
+            tournirResponses = try await NetworkService.shared.request(
+                endpoint: tournirEndpoint,
+                requestDTO: tournirRequest
+            )
+        } catch {
+            print(error.localizedDescription)
+            throw error
+        }
+            
         let mappedEvents = tournirResponses.map { dto -> Tournir in
-            Tournir(title: dto.title, description: dto.description, sport: dto.sport, type_group: .round_robin, start_time: Date(), created_at: Date(), entry_cost: Double(dto.entryCost) ?? 0, is_team_based: true, max_participants: Int(dto.maxParticipants) ?? 0, organizer_id: UUID())
+            Tournir(title: dto.title ?? "Unnamed", description: dto.description ?? "", sport: dto.sport ?? "Chess", type_group: .round_robin, start_time: Date(), created_at: Date(), entry_cost: Double(dto.entryCost ?? 0), is_team_based: true, max_participants: Int(dto.maxParticipants ?? 0), organizer_id: UUID())
         }
         return mappedEvents
     }

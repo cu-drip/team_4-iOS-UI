@@ -8,6 +8,7 @@
 enum ModalSheet: Identifiable {
     case registration
     case registrationToTournir
+    case tounirMaker
     
     var id: Int {
         switch self {
@@ -15,6 +16,8 @@ enum ModalSheet: Identifiable {
             return 0
         case .registrationToTournir:
             return 1
+        case .tounirMaker:
+            return 2
         }
     }
 }

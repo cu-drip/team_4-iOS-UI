@@ -24,7 +24,7 @@ struct TournirsListView: View {
                 
                 if coordinator.whoAreYou == .admin {
                     Button(action: {
-                        print(0)
+                        coordinator.presentSheet(.tounirMaker)
                     }, label: {
                         Image(systemName: "plus")
                             .padding(16)

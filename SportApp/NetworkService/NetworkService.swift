@@ -33,6 +33,15 @@ final class NetworkService {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = endpoint.method
         
+        let username = "Admin"
+        let password = "hashedpassword"
+
+        let loginString = "\(username):\(password)"
+        guard let loginData = loginString.data(using: .utf8) else { throw NetworkError.internalError }
+        let base64LoginString = loginData.base64EncodedString()
+
+        urlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+        
         if let headers = endpoint.headers {
             for (key, value) in headers {
                 urlRequest.setValue(value, forHTTPHeaderField: key)

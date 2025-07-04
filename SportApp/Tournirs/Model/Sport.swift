@@ -15,29 +15,29 @@ enum Sport {
     static func toString(_ sport: Sport) -> String {
         switch sport {
         case .football:
-            return "Football"
+            return "football"
         case .basketball:
-            return "Basketball"
+            return "basketball"
         case .chess:
-            return "Chess"
+            return "chess"
         case .tennis:
-            return "Tennis"
+            return "tennis"
         case .cyberSport:
-            return "CyberSport"
+            return "cyberSport"
         }
     }
     
     static func fromString(_ string: String) -> Sport {
         switch string {
-        case "Football":
+        case "football":
             return .football
-        case "Basketball":
+        case "basketball":
             return .basketball
-        case "Chess":
+        case "chess":
             return .chess
-        case "Tennis":
+        case "tennis":
             return .tennis
-        case "CyberSport":
+        case "cyberSport":
             return .cyberSport
         default:
             return .football
