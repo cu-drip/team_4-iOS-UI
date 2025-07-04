@@ -31,8 +31,6 @@ struct TournirsDetail: View {
                         .padding()
                 }
             }
-            //.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        //.toolbar(.hidden, for: .tabBar)
     }
 }

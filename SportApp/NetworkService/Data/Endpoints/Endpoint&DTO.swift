@@ -13,6 +13,7 @@ protocol Endpoint {
     var path: String { get }
     var method: String { get }
     var headers: [String: String]? { get }
+    var loginString: String? { get }
 }
 
 protocol RequestDTO: Encodable {}

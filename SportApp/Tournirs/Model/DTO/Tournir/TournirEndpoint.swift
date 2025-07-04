@@ -16,4 +16,5 @@ struct TournirEndpoint: Endpoint {
 
     var headers: [String: String]?
 
+    var loginString: String? = "Admin:hashedpassword"
 }
