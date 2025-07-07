@@ -115,13 +115,12 @@ struct RegistrationShieldView: View {
     
     
     func dismiss() {
-        switch coordinator.whoAreYou {
-        case .user:
-            coordinator.user = User(phio: phio, phone: phoneNuber, password: password)
-        case .admin:
-            coordinator.admin = Admin(phio: phio, phone: phoneNuber, password: password)
-        case .none:
-            break
+        
+        switch coordinator.user.isAdmin {
+        case false:
+            coordinator.user = User(phio: phio, phone: phoneNuber, password: password, isAdmin: false)
+        case true:
+            coordinator.user = User(phio: phio, phone: phoneNuber, password: password, isAdmin: true)
         }
         coordinator.dismissSheet()
         isAuthenticated = true

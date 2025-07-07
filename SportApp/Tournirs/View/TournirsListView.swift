@@ -14,7 +14,7 @@ struct TournirsListView: View {
     var body: some View {
         VStack {
             HStack {
-                if coordinator.whoAreYou == .admin {
+                if coordinator.user.isAdmin == true {
                     Text("   ")
                         .padding(16)
                 }
@@ -22,7 +22,7 @@ struct TournirsListView: View {
                 Scatual()
                     .frame(maxWidth: .infinity)
                 
-                if coordinator.whoAreYou == .admin {
+                if coordinator.user.isAdmin == true {
                     Button(action: {
                         coordinator.presentSheet(.tounirMaker)
                     }, label: {

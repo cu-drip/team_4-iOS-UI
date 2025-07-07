@@ -11,9 +11,7 @@ import Combine
 class Coordinator: ObservableObject {
     @Published var tournirListPath = NavigationPath()
     @Published var presentedSheet: ModalSheet?
-    @Published var whoAreYou: Appointment?
-    @Published var user: User?
-    @Published var admin: Admin?
+    @Published var user: User = User(phio: "", phone: "", password: "", isAdmin: false)
     @Published var currentTournir: Tournir?
     
     func presentSheet(_ sheet: ModalSheet) {
@@ -26,7 +24,6 @@ class Coordinator: ObservableObject {
     }
     
     func registratateUser() {
-        if let user = user {
             if currentTournir?.users.contains(where: { $0.id == user.id }) ?? true {
                 return
             }
@@ -36,4 +33,3 @@ class Coordinator: ObservableObject {
             }
         }
     }
-}

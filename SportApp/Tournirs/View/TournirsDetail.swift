@@ -70,8 +70,8 @@ struct TournirsDetail: View {
                 .frame(height: 1)
                 .padding(.horizontal, 12)
             
-            if coordinator.whoAreYou == .user {
-                if !coordinator.currentTournir!.users.contains(where: { $0.id == coordinator.user!.id }) {
+            if coordinator.user.isAdmin == false {
+                if !coordinator.currentTournir!.users.contains(where: { $0.id == coordinator.user.id }) {
                     Button(action: {
                         coordinator.presentSheet(.registrationToTournir)
                     }, label: {
