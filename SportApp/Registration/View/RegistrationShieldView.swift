@@ -1,5 +1,5 @@
 //
-//  Untitled.swift
+//  RegistrationShieldView.swift
 //  SportApp
 //
 //  Created by Zaitsev Vladislav on 02.07.2025.
@@ -17,6 +17,8 @@ struct RegistrationShieldView: View {
     @State var passwordCheck: String = ""
     @State var isLogInPressed = false
     
+    @State private var isEmailValid: Bool = true
+
     var body: some View {
         VStack {
             HStack {
@@ -57,6 +59,18 @@ struct RegistrationShieldView: View {
                     .background(.white)
                     .cornerRadius(22)
                     .padding(.bottom, 5)
+                    .autocapitalization(.none)
+                    .onChange(of: email) { newValue in
+                        isEmailValid = validateEmail(newValue)
+                    }
+                
+                if !isEmailValid {
+                    Text("Некорректный email")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                        .padding(.leading, 20)
+                        .padding(.bottom, 5)
+                }
                 
                 SecureField(" Введите пароль", text: $password)
                     .padding()
@@ -76,7 +90,10 @@ struct RegistrationShieldView: View {
                 
                 if !isLogInPressed {
                     Button(action: {
-                        dismiss()
+                        isEmailValid = validateEmail(email)
+                        if isEmailValid {
+                            dismiss()
+                        }
                     }, label: {
                         Text("Войти")
                             .frame(width: 166, height: 29)
@@ -84,9 +101,11 @@ struct RegistrationShieldView: View {
                             .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
                             .cornerRadius(22)
                     })
+                    .disabled(!isEmailValid)
                 } else {
                     Button(action: {
-                        if password == passwordCheck {
+                        isEmailValid = validateEmail(email)
+                        if password == passwordCheck && isEmailValid {
                             dismiss()
                         }
                     }, label: {
@@ -96,18 +115,17 @@ struct RegistrationShieldView: View {
                             .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
                             .cornerRadius(22)
                     })
+                    .disabled(!isEmailValid)
                 }
-
-                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             HStack {
                 if !isLogInPressed {
                     Button(action: {
-                        isLogInPressed.toggle();
+                        isLogInPressed.toggle()
                     }, label: {
-                        if (coordinator.user.isAdmin == false) {
+                        if coordinator.user.isAdmin == false {
                             VStack {
                                 Text("Вы входите как пользователь")
                                     .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
@@ -131,13 +149,11 @@ struct RegistrationShieldView: View {
                                 }
                             }
                             .padding()
-
                         }
-
                     })
                 } else {
                     Button(action: {
-                        isLogInPressed.toggle();
+                        isLogInPressed.toggle()
                     }, label: {
                         HStack {
                             Text("Есть аккаунт? ")
@@ -152,10 +168,14 @@ struct RegistrationShieldView: View {
         .background(Color(red: 248/255, green: 247/255, blue: 255/255))
     }
     
-    
     func dismiss() {
         coordinator.user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
         coordinator.dismissSheet()
         isAuthenticated = true
+    }
+    
+    func validateEmail(_ email: String) -> Bool {
+        let emailRegEx = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
+        return NSPredicate(format: "SELF MATCHES %@", emailRegEx).evaluate(with: email)
     }
 }
