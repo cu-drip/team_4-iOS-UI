@@ -102,7 +102,7 @@ struct TournirRegistration: View {
             parametrs = Sport.allCases[Sport.fromString(coordinator.currentTournir!.sport)] ?? []
             
             if parametrs.contains(.email) {
-                email = coordinator.user.email ?? ""
+                email = coordinator.user.email
             }
             
             if parametrs.contains(.age) && coordinator.user.age != nil {

@@ -13,8 +13,8 @@ class TournirsViewModel: ObservableObject {
     @Published var tournirs: [Tournir] = []
     
     init() {
-        tournirs = loadMockTournirs()
-        //loadTournirs()
+        //tournirs = loadMockTournirs()
+        loadTournirs()
     }
     
     func loadTournirs() {
@@ -33,20 +33,32 @@ class TournirsViewModel: ObservableObject {
         
         var tournirResponses = [TournirDTO]()
 
-        do {
-            tournirResponses = try await NetworkService.shared.request(
-                endpoint: tournirEndpoint,
-                requestDTO: tournirRequest
-            )
-        } catch {
-            print(error.localizedDescription)
-            throw error
-        }
+        tournirResponses = try await NetworkService.shared.request(
+            endpoint: tournirEndpoint,
+            requestDTO: tournirRequest
+        )
             
         let mappedEvents = tournirResponses.map { dto -> Tournir in
-            Tournir(title: dto.title ?? "Unnamed", description: dto.description ?? "", sport: dto.sport ?? "Chess", type_group: .round_robin, start_time: Date(), created_at: Date(), entry_cost: Double(dto.entryCost ?? 0), is_team_based: true, max_participants: Int(dto.maxParticipants ?? 0), organizer_id: UUID())
+            Tournir(title: dto.title ?? "Unnamed", description: dto.description ?? "", sport: dto.sport ?? "Chess", type_group: .round_robin, start_time: Date(), created_at: Date(), entry_cost: Double(dto.entryCost ?? 0), is_team_based: true, place: dto.place ?? "", max_participants: Int(dto.maxParticipants ?? 0), organizer_id: UUID(), requirements: Requirements())
         }
         return mappedEvents
+    }
+    
+    func giveTournir(tournir: Tournir) {
+        Task {
+            let tournirEndpoint = TournirPostEndpoint()
+            let tournirRequest = TournirDTO(tournir: tournir)
+            
+            do {
+                let respone: TournirDTO = try await NetworkService.shared.request(
+                    endpoint: tournirEndpoint,
+                    requestDTO: tournirRequest
+                )
+                print(respone)
+            } catch {
+                print(error)
+            }
+        }
     }
     
     func loadMockTournirs() -> [Tournir] {
@@ -60,8 +72,10 @@ class TournirsViewModel: ObservableObject {
                     created_at: Date(),
                     entry_cost: 1500.0,
                     is_team_based: true,
+                    place: "",
                     max_participants: 16,
-                    organizer_id: UUID()
+                    organizer_id: UUID(),
+                    requirements: Requirements()
                 ),
                 Tournir(
                     title: "Кубок чемпионов по шахматам",
@@ -72,8 +86,10 @@ class TournirsViewModel: ObservableObject {
                     created_at: Date().addingTimeInterval(-86400 * 2),
                     entry_cost: 500.0,
                     is_team_based: false,
+                    place: "",
                     max_participants: 64,
-                    organizer_id: UUID()
+                    organizer_id: UUID(),
+                    requirements: Requirements()
                 ),
                 Tournir(
                     title: "Летний теннисный кубок",
@@ -84,8 +100,10 @@ class TournirsViewModel: ObservableObject {
                     created_at: Date().addingTimeInterval(-86400 * 5),
                     entry_cost: 2000.0,
                     is_team_based: false,
+                    place: "",
                     max_participants: 32,
-                    organizer_id: UUID()
+                    organizer_id: UUID(),
+                    requirements: Requirements()
                 ),
                 Tournir(
                     title: "Киберспорт-чемпионат по Dota 2",
@@ -96,8 +114,10 @@ class TournirsViewModel: ObservableObject {
                     created_at: Date().addingTimeInterval(-86400 * 10),
                     entry_cost: 0.0,
                     is_team_based: true,
+                    place: "",
                     max_participants: 8,
-                    organizer_id: UUID()
+                    organizer_id: UUID(),
+                    requirements: Requirements()
                 ),
                 Tournir(
                     title: "Баскетбольная лига стартапов",
@@ -108,8 +128,10 @@ class TournirsViewModel: ObservableObject {
                     created_at: Date().addingTimeInterval(-86400 * 3),
                     entry_cost: 1000.0,
                     is_team_based: true,
+                    place: "",
                     max_participants: 12,
-                    organizer_id: UUID()
+                    organizer_id: UUID(),
+                    requirements: Requirements()
                 )
             ]
         return x
