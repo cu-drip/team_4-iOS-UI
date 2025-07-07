@@ -1,10 +1,3 @@
-//
-//  RegistrationShieldView.swift
-//  SportApp
-//
-//  Created by Zaitsev Vladislav on 02.07.2025.
-//
-
 import SwiftUI
 
 struct RegistrationShieldView: View {
