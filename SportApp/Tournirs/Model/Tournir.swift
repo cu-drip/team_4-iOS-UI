@@ -17,9 +17,34 @@ struct Tournir: Codable, Identifiable, Hashable {
     var created_at: Date
     var entry_cost: Double
     var is_team_based: Bool
+    var place: String
     var max_participants: Int
     var organizer_id: UUID
     var users: [User] = []
+    var requirements: Requirements
+}
+
+struct Requirements: Codable, Hashable {
+    var sexIsMan: Bool?
+    var ageMin: Int
+    var ageMax: Int
+    var heightMin: Int
+    var heightMax: Int
+    var weightMin: Int
+    var weightMax: Int
+    var mmrMin: Int
+    var mmrMax: Int
+    
+    init() {
+        ageMin = 0
+        ageMax = 100
+        heightMin = 0
+        heightMax = 200
+        weightMin = 0
+        weightMax = 100
+        mmrMin = 0
+        mmrMax = 10000
+    }
 }
 
 enum TypeTournir: Codable, Identifiable, Hashable {

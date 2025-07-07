@@ -24,12 +24,12 @@ class Coordinator: ObservableObject {
     }
     
     func registratateUser() {
-            if currentTournir?.users.contains(where: { $0.id == user.id }) ?? true {
-                return
-            }
-            currentTournir?.users.append(user)
-            if currentTournir != nil{
-                print(currentTournir!.users)
-            }
+        if currentTournir?.users.contains(where: { $0.id == user.id }) ?? true {
+            return
+        }
+        currentTournir?.users.append(user)
+        if currentTournir != nil{
+            print(currentTournir!.users)
         }
     }
+}
