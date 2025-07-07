@@ -73,7 +73,7 @@ struct RegistrationShieldView: View {
                     .padding(.bottom, 5)
                 
                 if isLogInPressed {
-                    TextField(" Подтвердите пароль", text: $passwordCheck)
+                    SecureField(" Подтвердите пароль", text: $passwordCheck)
                         .padding()
                         .frame(width: 406, height: 53)
                         .background(.white)

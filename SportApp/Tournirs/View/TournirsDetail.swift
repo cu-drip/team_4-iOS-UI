@@ -68,6 +68,32 @@ struct TournirsDetail: View {
                 .frame(height: 1)
                 .padding(.horizontal, 12)
             
+            Text("Участники")
+            
+            List {
+                HStack {
+                    Text("Жмыха")
+                        .padding(.leading)
+                    
+                    Spacer()
+                    
+                    Text("MMR")
+                        .padding(.trailing)
+                }
+                
+                ForEach(coordinator.currentTournir!.users, id: \.id) { user in
+                    HStack {
+                        Text(user.phio)
+                            .padding(.leading)
+                        
+                        Spacer()
+                        
+                        Text(String(user.mmr ?? 0))
+                            .padding(.trailing)
+                    }
+                }
+            }
+            
             if coordinator.user.isAdmin == false {
                 if !coordinator.currentTournir!.users.contains(where: { $0.id == coordinator.user.id }) {
                     Button(action: {
