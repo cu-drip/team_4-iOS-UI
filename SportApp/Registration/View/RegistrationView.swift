@@ -23,7 +23,7 @@ struct RegistrationView: View {
                 VStack {
                     Button(action: {
                         coordinator.presentSheet(.registration)
-                        coordinator.whoAreYou = .user
+                        coordinator.user.isAdmin = false
                     }, label: {
                         Text("Участник")
                             .font(.system(size: 22))
@@ -36,7 +36,7 @@ struct RegistrationView: View {
                     
                     Button(action: {
                         coordinator.presentSheet(.registration)
-                        coordinator.whoAreYou = .admin
+                        coordinator.user.isAdmin = true
                     }, label: {
                         Text("Организатор")
                             .font(.system(size: 22))

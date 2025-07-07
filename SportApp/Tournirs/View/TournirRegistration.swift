@@ -102,56 +102,56 @@ struct TournirRegistration: View {
             parametrs = Sport.allCases[Sport.fromString(coordinator.currentTournir!.sport)] ?? []
             
             if parametrs.contains(.email) {
-                email = coordinator.user?.email ?? ""
+                email = coordinator.user.email ?? ""
             }
             
-            if parametrs.contains(.age) && coordinator.user!.age != nil {
-                age = String(coordinator.user!.age!)
+            if parametrs.contains(.age) && coordinator.user.age != nil {
+                age = String(coordinator.user.age!)
             }
             
-            if parametrs.contains(.sexIsMan) && coordinator.user!.sexIsMan != nil {
-                selectedGender = coordinator.user!.sexIsMan! ? 0 : 1
+            if parametrs.contains(.sexIsMan) && coordinator.user.sexIsMan != nil {
+                selectedGender = coordinator.user.sexIsMan! ? 0 : 1
             }
             
-            if parametrs.contains(.weight) && coordinator.user!.weight != nil {
-                weight = String(coordinator.user!.weight!)
+            if parametrs.contains(.weight) && coordinator.user.weight != nil {
+                weight = String(coordinator.user.weight!)
             }
             
-            if parametrs.contains(.height) && coordinator.user!.height != nil {
-                height = String(coordinator.user!.height!)
+            if parametrs.contains(.height) && coordinator.user.height != nil {
+                height = String(coordinator.user.height!)
             }
             
-            if parametrs.contains(.mmr) && coordinator.user!.mmr != nil {
-                mmr = String(coordinator.user!.mmr!)
+            if parametrs.contains(.mmr) && coordinator.user.mmr != nil {
+                mmr = String(coordinator.user.mmr!)
             }
             
             if parametrs.contains(.bio) {
-                bio = coordinator.user?.bio ?? ""
+                bio = coordinator.user.bio ?? ""
             }
         }
     }
     
     func escape() {
         if email != "" {
-            coordinator.user!.email = email
+            coordinator.user.email = email
         }
         if age != "" && Int(age) != nil {
-            coordinator.user!.age = Int(age)
+            coordinator.user.age = Int(age)
         }
         if parametrs.contains(.sexIsMan) {
-            coordinator.user!.sexIsMan = selectedGender == 0
+            coordinator.user.sexIsMan = selectedGender == 0
         }
         if weight != "" && Double(weight) != nil {
-            coordinator.user!.weight = Double(weight)
+            coordinator.user.weight = Double(weight)
         }
         if height != "" && Double(height) != nil {
-            coordinator.user!.height = Double(height)
+            coordinator.user.height = Double(height)
         }
         if mmr != "" && Int(mmr) != nil {
-            coordinator.user!.mmr = Double(mmr)
+            coordinator.user.mmr = Double(mmr)
         }
         if bio != "" {
-            coordinator.user!.bio = bio
+            coordinator.user.bio = bio
         }
     }
 }

@@ -20,6 +20,7 @@ struct User: Identifiable, Hashable, Codable {
     var height: Double?
     var mmr: Double?
     var bio: String?
+    var isAdmin: Bool
 }
 
 enum UserCodingKeys: String {
