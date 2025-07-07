@@ -10,9 +10,9 @@ import Foundation
 struct User: Identifiable, Hashable, Codable {
     var id = UUID()
     var phio: String
-    var phone: String
+    var phone: String?
     var password: String
-    var email: String?
+    var email: String
     var dateOfBirth: Date?
     var age: Int?
     var sexIsMan: Bool?
