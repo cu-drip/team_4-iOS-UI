@@ -12,7 +12,7 @@ struct RegistrationShieldView: View {
     @Binding var isAuthenticated: Bool
     
     @State var phio: String = ""
-    @State var phoneNuber: String = ""
+    @State var email: String = ""
     @State var password: String = ""
     @State var passwordCheck: String = ""
     @State var isLogInPressed = false
@@ -51,7 +51,7 @@ struct RegistrationShieldView: View {
                         .padding(.bottom, 5)
                 }
                 
-                TextField(" Номер телефона", text: $phoneNuber)
+                TextField(" Электронная почта", text: $email)
                     .padding()
                     .frame(width: 406, height: 53)
                     .background(.white)
@@ -91,7 +91,7 @@ struct RegistrationShieldView: View {
                         }
                     }, label: {
                         Text("Зарегистрироваться")
-                            .frame(width: 192, height: 29) // Задаем размер кнопки
+                            .frame(width: 192, height: 35) // Задаем размер кнопки
                             .background(Color.white) // Белый фон
                             .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
                             .cornerRadius(22) // Скругление углов
@@ -157,9 +157,9 @@ struct RegistrationShieldView: View {
         
         switch coordinator.user.isAdmin {
         case false:
-            coordinator.user = User(phio: phio, phone: phoneNuber, password: password, isAdmin: false)
+            coordinator.user = User(phio: phio, password: password, email: "", isAdmin: false)
         case true:
-            coordinator.user = User(phio: phio, phone: phoneNuber, password: password, isAdmin: true)
+            coordinator.user = User(phio: phio, password: password, email: "", isAdmin: true)
         }
         coordinator.dismissSheet()
         isAuthenticated = true
