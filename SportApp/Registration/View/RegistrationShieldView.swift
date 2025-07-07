@@ -97,7 +97,7 @@ struct RegistrationShieldView: View {
                     }, label: {
                         Text("Войти")
                             .frame(width: 166, height: 29)
-                            .background(isEmailValid ? Color.white : Color.gray.opacity(0.5))
+                            .background(Color.white)
                             .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
                             .cornerRadius(22)
                     })
@@ -111,7 +111,7 @@ struct RegistrationShieldView: View {
                     }, label: {
                         Text("Зарегистрироваться")
                             .frame(width: 192, height: 35)
-                            .background(isEmailValid ? Color.white : Color.gray.opacity(0.5))
+                            .background(Color.white)
                             .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
                             .cornerRadius(22)
                     })
@@ -169,12 +169,7 @@ struct RegistrationShieldView: View {
     }
     
     func dismiss() {
-        switch coordinator.user.isAdmin {
-        case false:
-            coordinator.user = User(phio: phio, password: password, email: email, isAdmin: false)
-        case true:
-            coordinator.user = User(phio: phio, password: password, email: email, isAdmin: true)
-        }
+        coordinator.user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
         coordinator.dismissSheet()
         isAuthenticated = true
     }

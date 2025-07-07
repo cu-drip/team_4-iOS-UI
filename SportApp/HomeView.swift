@@ -47,7 +47,8 @@ struct HomeView: View {
             .tag(0) // исправить потом
 
             NavigationStack() {
-                EmptyView()
+                ProfileView()
+                    .environmentObject(coordinator)
             }
             .tabItem {
                 Label("Профиль", systemImage: "person.crop.circle")
