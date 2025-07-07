@@ -77,13 +77,140 @@ struct ProfileView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 10)
             
-            Text("ФИО")
-            Text("Пол")
-            Text("Дата рождения")
-            Text("Возраст")
+            HStack {
+                VStack {
+                    Text("ФИО")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                        .padding(.horizontal, 20)
+                    Text(coordinator.user.phio)
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 10)
+                }
+                
+                VStack {
+                    Text("Пол")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                        .padding(.horizontal, 20)
+                    if let sex = coordinator.user.sexIsMan {
+                        Text("\(sex ? "Мужской" : "Женский")")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    } else {
+                        Text("Не указан")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    }
+                }
+            }
+            
+            HStack {
+                VStack {
+                    Text("Дата рождения")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                        .padding(.horizontal, 20)
+                    Text("\(formattedBirthDate)")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 10)
+                }
+                
+                VStack {
+                    Text("Возраст")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                        .padding(.horizontal, 20)
+                    if let age = coordinator.user.age {
+                        Text("\(age)")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    } else {
+                        Text("Не указан")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    }
+                }
+            }
+            
+            Rectangle()
+                .fill(Color(red: 123/255, green: 123/255, blue: 123/255))
+                .frame(height: 1)
+                .padding(.horizontal, 12)
+            
             Text("Характеристики")
+                .font(.system(size: 24, weight: .medium))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                .padding(.horizontal, 20)
+                .padding(.bottom, 10)
+            
+            HStack {
+                VStack {
+                    Text("ММР")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                        .padding(.horizontal, 20)
+                    Text("-")
+                }
+                VStack {
+                    Text("Рост")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                        .padding(.horizontal, 20)
+                    Text("-")
+                }
+                VStack {
+                    Text("Вес")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                        .padding(.horizontal, 20)
+                    Text("-")
+                }
+            }
+            
+            Rectangle()
+                .fill(Color(red: 123/255, green: 123/255, blue: 123/255))
+                .frame(height: 1)
+                .padding(.horizontal, 12)
+            
             Text("Описание")
+                .font(.system(size: 24, weight: .medium))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                .padding(.horizontal, 20)
+                .padding(.bottom, 10)
             Spacer()
         }
     }
+    private var formattedBirthDate: String {
+            guard let birthDate = coordinator.user.dateOfBirth else {
+                return "137"
+            }
+
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "ru_RU_POSIX")
+            formatter.dateFormat = "dd.MM.yyyy"
+
+        return formatter.string(from: birthDate)
+        }
 }
