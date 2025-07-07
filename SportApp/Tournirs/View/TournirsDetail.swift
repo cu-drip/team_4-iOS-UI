@@ -25,33 +25,68 @@ struct TournirsDetail: View {
                 .padding(.horizontal, 10)
                 .padding(.bottom, 10)
             
-            Text("Вид Спорта")
-                .font(.system(size: 20, weight: .bold))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 10)
-                .padding(.bottom, 1)
-            Text(coordinator.currentTournir!.sport)
-                .font(.system(size: 18, weight: .medium))
-                .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 10)
-                .padding(.bottom, 10)
+            HStack {
+                VStack{
+                    Text("Вид Спорта")
+                        .font(.system(size: 20, weight: .bold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 10)
+                        .padding(.bottom, 1)
+                    Text(coordinator.currentTournir!.sport)
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 10)
+                        .padding(.bottom, 10)
+                }
+                Spacer()
+                VStack {
+                    Text("Стоимость")
+                        .font(.system(size: 20, weight: .bold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 10)
+                        .padding(.bottom, 1)
+                    if coordinator.currentTournir!.entry_cost == 0 {
+                        Text("Бесплатно")
+                            .font(.system(size: 18, weight: .medium))
+                            .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 10)
+                            .padding(.bottom, 10)
+                    } else {
+                        Text("\(Int(coordinator.currentTournir!.entry_cost)) руб.")
+                            .font(.system(size: 18, weight: .medium))
+                            .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 10)
+                            .padding(.bottom, 10)
+                    }
+                }
+
+            }
+            
+            Rectangle()
+                .fill(Color(red: 123/255, green: 123/255, blue: 123/255))
+                .frame(height: 1)
+                .padding(.horizontal, 12)
             
             if coordinator.whoAreYou == .user {
                 if !coordinator.currentTournir!.users.contains(where: { $0.id == coordinator.user!.id }) {
                     Button(action: {
                         coordinator.presentSheet(.registrationToTournir)
                     }, label: {
-                        Text("Зарегестрироваться")
+                        Text("Зарегистрироваться")
                             .padding()
                     })
                 } else {
-                    Text("Зарегестрироваться")
+                    Text("Зарегистрироваться")
                         .padding()
                 }
             }
             Spacer()
         }
         .padding(.top, 0)
+        .navigationTitle("О соревновании")
+
     }
 }
