@@ -45,7 +45,7 @@ struct RegistrationShieldView: View {
                 if isLogInPressed {
                     TextField(" ФИО", text: $phio)
                         .padding()
-                        .frame(width: 400, height: 50)
+                        .frame(width: 406, height: 53)
                         .background(.white)
                         .cornerRadius(22)
                         .padding(.bottom, 5)
@@ -53,14 +53,14 @@ struct RegistrationShieldView: View {
                 
                 TextField(" Номер телефона", text: $phoneNuber)
                     .padding()
-                    .frame(width: 400, height: 50)
+                    .frame(width: 406, height: 53)
                     .background(.white)
                     .cornerRadius(22)
                     .padding(.bottom, 5)
                 
                 SecureField(" Введите пароль", text: $password)
                     .padding()
-                    .frame(width: 400, height: 50)
+                    .frame(width: 406, height: 53)
                     .background(.white)
                     .cornerRadius(22)
                     .padding(.bottom, 5)
@@ -68,7 +68,7 @@ struct RegistrationShieldView: View {
                 if isLogInPressed {
                     TextField(" Подтвердите пароль", text: $passwordCheck)
                         .padding()
-                        .frame(width: 400, height: 50)
+                        .frame(width: 406, height: 53)
                         .background(.white)
                         .cornerRadius(22)
                         .padding(.bottom, 5)
@@ -79,6 +79,10 @@ struct RegistrationShieldView: View {
                         dismiss()
                     }, label: {
                         Text("Войти")
+                            .frame(width: 166, height: 29) // Задаем размер кнопки
+                            .background(Color.white) // Белый фон
+                            .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
+                            .cornerRadius(22) // Скругление углов
                     })
                 } else {
                     Button(action: {
@@ -86,29 +90,64 @@ struct RegistrationShieldView: View {
                             dismiss()
                         }
                     }, label: {
-                        Text("Зарегестрировать")
+                        Text("Зарегистрироваться")
+                            .frame(width: 192, height: 29) // Задаем размер кнопки
+                            .background(Color.white) // Белый фон
+                            .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
+                            .cornerRadius(22) // Скругление углов
                     })
                 }
+
                 
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            HStack {
                 if !isLogInPressed {
                     Button(action: {
                         isLogInPressed.toggle();
                     }, label: {
-                        Text("Зарегестрироваться")
+                        if (coordinator.user.isAdmin == false) {
+                            VStack {
+                                Text("Вы входите как пользователь")
+                                    .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
+                                HStack {
+                                    Text("Нет аккаунта? ")
+                                        .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
+                                    + Text("Зарегистрироваться")
+                                        .foregroundColor(Color(red: 47/255, green: 118/255, blue: 250/255))
+                                }
+                            }
                             .padding()
+                        } else {
+                            VStack {
+                                Text("Вы входите как организатор")
+                                    .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
+                                HStack {
+                                    Text("Нет аккаунта? ")
+                                        .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
+                                    + Text("Зарегистрироваться")
+                                        .foregroundColor(Color(red: 47/255, green: 118/255, blue: 250/255))
+                                }
+                            }
+                            .padding()
+
+                        }
+
                     })
                 } else {
                     Button(action: {
                         isLogInPressed.toggle();
                     }, label: {
-                        Text("Войти")
-                            .padding()
+                        HStack {
+                            Text("Есть аккаунт? ")
+                                .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
+                            + Text("Войти")
+                                .foregroundColor(Color(red: 47/255, green: 118/255, blue: 250/255))
+                        }
                     })
                 }
-                
-                
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .background(Color(red: 248/255, green: 247/255, blue: 255/255))
     }
