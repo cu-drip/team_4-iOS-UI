@@ -20,6 +20,18 @@ struct TournirDTO: Codable {
     var registrationDeadline: String?
     var place: String?
     var organizedId: String?
+    
+    init(tournir: Tournir) {
+        id = tournir.id.uuidString
+        title = tournir.title
+        description = tournir.description
+        sport = tournir.sport
+        entryCost = tournir.entry_cost
+        maxParticipants = tournir.max_participants
+        registrationDeadline = nil
+        place = tournir.place
+        organizedId = tournir.organizer_id.uuidString
+    }
 }
 
 //"id":"2adad6cb-1ae9-4948-a4d9-59bd847b8753",

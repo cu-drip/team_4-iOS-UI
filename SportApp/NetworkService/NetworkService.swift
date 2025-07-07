@@ -60,7 +60,9 @@ final class NetworkService {
                 urlRequest.httpBody = try JSONEncoder().encode(requestDTO)
             }
         }
-        
+//        if let p = urlRequest.httpBody {
+//            print(String(data: p, encoding: .utf8) ?? "")
+//        }
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
         guard let httpResponse = response as? HTTPURLResponse else {
