@@ -41,9 +41,9 @@ enum Sport {
         case .tennis:
             return "tennis"
         case .boxing:
-            return "Бокс"
+            return "boxing"
         case .jiu_jitsu:
-            return "Джиу-джитсу"
+            return "jiu_jitsu"
         }
     }
     
@@ -57,9 +57,9 @@ enum Sport {
             return .chess
         case "tennis":
             return .tennis
-        case "Бокс":
+        case "boxing":
             return .boxing
-        case "Джиу-джитсу":
+        case "jiu_jitsu":
             return .jiu_jitsu
         default:
             return .football
@@ -71,8 +71,8 @@ enum Sport {
         .basketball: [.age, .sexIsMan, .mmr, .height],
         .chess: [.mmr],
         .tennis: [.age, .sexIsMan, .mmr, .weight],
-        .boxing: [.height, .age, .sexIsMan],
-        .jiu_jitsu: [.height, .age, .sexIsMan]
+        .boxing: [.weight, .age, .sexIsMan],
+        .jiu_jitsu: [.weight, .age, .sexIsMan]
     ]
     
     static let allSports: [Sport] = [.football, .basketball, .chess, .tennis, .boxing, .jiu_jitsu]
