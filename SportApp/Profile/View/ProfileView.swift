@@ -168,23 +168,61 @@ struct ProfileView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
                         .padding(.horizontal, 20)
-                    Text("-")
+                    if let mmr = coordinator.user.mmr {
+                        Text(String(format: "%.0f", mmr))
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    } else {
+                        Text("-")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    }
                 }
+                
                 VStack {
                     Text("Рост")
                         .font(.system(size: 21, weight: .medium))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
                         .padding(.horizontal, 20)
-                    Text("-")
+                    if let height = coordinator.user.height {
+                        Text("\(Int(height)) см")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    } else {
+                        Text("-")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    }
                 }
+                
                 VStack {
                     Text("Вес")
                         .font(.system(size: 21, weight: .medium))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
                         .padding(.horizontal, 20)
-                    Text("-")
+                    if let weight = coordinator.user.weight {
+                        Text("\(Int(weight)) кг")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    } else {
+                        Text("-")
+                            .font(.system(size: 21, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                    }
                 }
             }
             
@@ -198,19 +236,34 @@ struct ProfileView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
                 .padding(.horizontal, 20)
-                .padding(.bottom, 10)
+            if let bio = coordinator.user.bio, !bio.isEmpty {
+                Text(bio)
+                    .font(.system(size: 24, weight: .medium))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(Color(red: 123/255, green: 123/255, blue: 123/255))
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 10)
+            } else {
+                Text("Не указано")
+                    .font(.system(size: 24, weight: .medium))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 10)
+            }
+
             Spacer()
         }
     }
+    
     private var formattedBirthDate: String {
-            guard let birthDate = coordinator.user.dateOfBirth else {
-                return "137"
-            }
-
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "ru_RU_POSIX")
-            formatter.dateFormat = "dd.MM.yyyy"
-
-        return formatter.string(from: birthDate)
+        guard let birthDate = coordinator.user.dateOfBirth else {
+            return "Не указана"
         }
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU_POSIX")
+        formatter.dateFormat = "dd.MM.yyyy"
+        
+        return formatter.string(from: birthDate)
+    }
 }
