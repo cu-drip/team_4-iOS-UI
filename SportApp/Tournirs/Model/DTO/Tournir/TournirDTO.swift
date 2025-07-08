@@ -12,6 +12,8 @@ struct TournirDTO: Codable {
     var title: String?
     var description: String?
     var sport: String?
+    var typeTournament: String?
+    var typeGroup: String?
     var matchesNumber: Int?
     var startTime: String?
     var createdAt: String?
@@ -33,6 +35,23 @@ struct TournirDTO: Codable {
         organizedId = tournir.organizer_id.uuidString
     }
 }
+
+//"id": "13e5ab2c-8c51-475f-8820-5c03efb11332",
+//"title": "Quick Shot Tourney",
+//"description": "Мега гига турнир по теннису",
+//"sport": "tennis",
+//"typeTournament": "solo",
+//"typeGroup": "olympic",
+//"matchesNumber": 4,
+//"startTime": null,
+//"createdAt": "2025-07-07T15:56:09.884662",
+//"entryCost": 1000.0,
+//"maxParticipants": 32,
+//"registrationDeadline": null,
+//"place": "Анапа",
+//"organizedId": "82a0a76b-a3f5-4d7c-a6e4-c65b9e342bd7"
+
+
 
 //"id":"2adad6cb-1ae9-4948-a4d9-59bd847b8753",
 //"title":"Summer Championship",

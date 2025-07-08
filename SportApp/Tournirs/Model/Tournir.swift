@@ -13,6 +13,7 @@ struct Tournir: Codable, Identifiable, Hashable {
     var description: String
     var sport: String
     var type_group: TypeTournir
+    var type_tournir: TypeIsTeam
     var start_time: Date
     var created_at: Date
     var entry_cost: Double
@@ -60,6 +61,64 @@ enum TypeTournir: Codable, Identifiable, Hashable {
             return 2
         case .round_robin:
             return 3
+        }
+    }
+    
+    static func toString(_ type: TypeTournir) -> String {
+        switch type {
+        case .olympic:
+            return "olympic"
+        case .swiss:
+            return "swiss"
+        case .round_robin:
+            return "round_robin"
+        }
+    }
+    
+    static func fromString(_ string: String) -> TypeTournir {
+        switch string {
+        case "olympic":
+            return .olympic
+        case "swiss":
+            return .swiss
+        case "round_robin":
+            return .round_robin
+        default:
+            return .round_robin
+        }
+    }
+}
+
+enum TypeIsTeam: Codable, Identifiable, Hashable {
+    case team
+    case solo
+    
+    var id: Int {
+        switch self {
+        case .team:
+            return 1
+        case .solo:
+            return 2
+        }
+    }
+    
+    static func toString(_ type: TypeIsTeam) -> String {
+        switch type {
+        case .team:
+            return "team"
+        case .solo:
+            return "solo"
+        }
+    }
+    
+    static func fromString(_ string: String) -> TypeIsTeam {
+        switch string {
+        case "team":
+            return .team
+        case "solo":
+            return .solo
+        default:
+            return .solo
         }
     }
 }

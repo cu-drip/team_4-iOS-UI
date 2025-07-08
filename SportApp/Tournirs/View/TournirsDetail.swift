@@ -88,7 +88,7 @@ struct TournirsDetail: View {
                         
                         Spacer()
                         
-                        Text(String(user.mmr ?? 0))
+                        Text(String(Int(user.mmr ?? 0)))
                             .padding(.trailing)
                     }
                 }

@@ -5,7 +5,7 @@ struct RegistrationShieldView: View {
     @Binding var isAuthenticated: Bool
     
     @State var phio: String = ""
-    @State var email: String = ""
+    @State var email: String = "1@1.ru"
     @State var password: String = ""
     @State var passwordCheck: String = ""
     @State var isLogInPressed = false
@@ -53,7 +53,7 @@ struct RegistrationShieldView: View {
                     .cornerRadius(22)
                     .padding(.bottom, 5)
                     .autocapitalization(.none)
-                    .onChange(of: email) { newValue in
+                    .onChange(of: email) { _, newValue in
                         isEmailValid = validateEmail(newValue)
                     }
                 
