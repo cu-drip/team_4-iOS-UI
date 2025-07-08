@@ -109,9 +109,9 @@ class TournirsViewModel: ObservableObject {
                     requirements: Requirements()
                 ),
                 Tournir(
-                    title: "Киберспорт-чемпионат по Dota 2",
-                    description: "Онлайн-турнир для киберспортивных команд",
-                    sport: "cyberSport",
+                    title: "Джиу-джутсу турнир",
+                    description: "Онлайн-турнир для jiu_jitsu",
+                    sport: "jiu_jitsu",
                     type_group: .round_robin,
                     type_tournir: .solo,
                     start_time: Date().addingTimeInterval(86400 * 14),
