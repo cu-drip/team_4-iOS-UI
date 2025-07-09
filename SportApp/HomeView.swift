@@ -12,6 +12,7 @@ struct HomeView: View {
     @StateObject var viewModelOfTournirs = TournirsViewModel()
     @State var isAuthenticated: Bool = false
     
+    
     var body: some View {
         Group {
             if !isAuthenticated {
