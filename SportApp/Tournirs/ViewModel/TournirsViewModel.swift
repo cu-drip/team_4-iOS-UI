@@ -32,11 +32,14 @@ class TournirsViewModel: ObservableObject {
         let tournirRequest = TournirRequest()
         
         var tournirResponses = [TournirDTO]()
-
-        tournirResponses = try await NetworkService.shared.request(
-            endpoint: tournirEndpoint,
-            requestDTO: tournirRequest
-        )
+        do {
+            tournirResponses = try await NetworkService.shared.request(
+                endpoint: tournirEndpoint,
+                requestDTO: tournirRequest
+            )
+        } catch {
+            //print(error)
+        }
             
         let mappedEvents = tournirResponses.map { dto -> Tournir in
             Tournir(title: dto.title ?? "Unnamed", description: dto.description ?? "", sport: dto.sport ?? "Chess", type_group: TypeTournir.fromString(dto.typeGroup ?? ""), type_tournir: TypeIsTeam.fromString(dto.typeTournament ?? ""), start_time: Date(), created_at: Date(), entry_cost: Double(dto.entryCost ?? 0), is_team_based: true, place: dto.place ?? "", max_participants: Int(dto.maxParticipants ?? 0), organizer_id: UUID(), requirements: Requirements())

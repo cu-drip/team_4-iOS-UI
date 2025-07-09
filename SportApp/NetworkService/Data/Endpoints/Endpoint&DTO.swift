@@ -14,6 +14,7 @@ protocol Endpoint {
     var method: String { get }
     var headers: [String: String]? { get }
     var loginString: String? { get }
+    var isTokenRequired: Bool { get }
 }
 
 protocol RequestDTO: Encodable {}

@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		319C0F1D2E1EAC3900BF7D83 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 319C0F1C2E1EAC3900BF7D83 /* JWTDecode */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		310422B22E14371D00D64B73 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -70,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				319C0F1D2E1EAC3900BF7D83 /* JWTDecode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +138,7 @@
 			);
 			name = SportApp;
 			packageProductDependencies = (
+				319C0F1C2E1EAC3900BF7D83 /* JWTDecode */,
 			);
 			productName = SportApp;
 			productReference = 310422A42E14371C00D64B73 /* SportApp.app */;
@@ -216,6 +222,9 @@
 			);
 			mainGroup = 3104229B2E14371C00D64B73;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				319C0F1B2E1EAC3900BF7D83 /* XCRemoteSwiftPackageReference "JWTDecode" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 310422A52E14371C00D64B73 /* Products */;
 			projectDirPath = "";
@@ -620,6 +629,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		319C0F1B2E1EAC3900BF7D83 /* XCRemoteSwiftPackageReference "JWTDecode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/JWTDecode.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		319C0F1C2E1EAC3900BF7D83 /* JWTDecode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 319C0F1B2E1EAC3900BF7D83 /* XCRemoteSwiftPackageReference "JWTDecode" */;
+			productName = JWTDecode;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3104229C2E14371C00D64B73 /* Project object */;
 }

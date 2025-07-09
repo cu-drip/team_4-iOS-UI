@@ -16,5 +16,7 @@ struct TournirEndpoint: Endpoint {
 
     var headers: [String: String]?
 
-    var loginString: String? = "Admin:hashedpassword"
+    var loginString: String?// = "Admin:hashedpassword"
+    
+    var isTokenRequired: Bool = true
 }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RegistrationShieldView: View {
     @EnvironmentObject var coordinator: Coordinator
+    @EnvironmentObject var registrationViewModel: RegistrationViewModel
     @Binding var isAuthenticated: Bool
     
     @State var phio: String = ""
@@ -85,7 +86,9 @@ struct RegistrationShieldView: View {
                     Button(action: {
                         isEmailValid = validateEmail(email)
                         if isEmailValid {
-                            dismiss()
+                            let user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
+                            registrationViewModel.login(user: user)
+                            dismiss(user: user)
                         }
                     }, label: {
                         Text("Войти")
@@ -99,7 +102,9 @@ struct RegistrationShieldView: View {
                     Button(action: {
                         isEmailValid = validateEmail(email)
                         if password == passwordCheck && isEmailValid {
-                            dismiss()
+                            let user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
+                            registrationViewModel.register(user: user)
+                            dismiss(user: user)
                         }
                     }, label: {
                         Text("Зарегистрироваться")
@@ -161,8 +166,8 @@ struct RegistrationShieldView: View {
         .background(Color(red: 248/255, green: 247/255, blue: 255/255))
     }
     
-    func dismiss() {
-        coordinator.user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
+    func dismiss(user: User) {
+        coordinator.user = user//User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
         coordinator.dismissSheet()
         isAuthenticated = true
     }

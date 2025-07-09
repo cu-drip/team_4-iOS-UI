@@ -9,8 +9,13 @@ import Foundation
 
 final class NetworkService {
     static let shared = NetworkService()
+    public var token: String?
     
     private init() {}
+    
+//    init(token: String) {
+//        self.token = token
+//    }
     
     func request<Request: Encodable, Response: Decodable>(
         endpoint: Endpoint,
@@ -60,6 +65,14 @@ final class NetworkService {
                 urlRequest.httpBody = try JSONEncoder().encode(requestDTO)
             }
         }
+        
+        if let token = token {
+            if endpoint.isTokenRequired {
+                urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            }
+        }
+        
+        
 //        if let p = urlRequest.httpBody {
 //            print(String(data: p, encoding: .utf8) ?? "")
 //        }

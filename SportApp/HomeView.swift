@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var coordinator = Coordinator()
     @StateObject var viewModelOfTournirs = TournirsViewModel()
+    @StateObject var viewModelOfRegistration = RegistrationViewModel()
     @State var isAuthenticated: Bool = false
     
     var body: some View {
@@ -36,9 +37,6 @@ struct HomeView: View {
                     .navigationDestination(for: Tournir.self) { detail in
                         TournirsDetail()
                             .environmentObject(coordinator)
-//                            .onAppear {
-//                                coordinator.currentTournir = detail
-//                            }
                     }
             }
             .tabItem {
@@ -63,6 +61,7 @@ struct HomeView: View {
         case .registration:
             RegistrationShieldView(isAuthenticated: $isAuthenticated)
                 .environmentObject(coordinator)
+                .environmentObject(viewModelOfRegistration)
         case .registrationToTournir:
             TournirRegistration()
                 .environmentObject(coordinator)
