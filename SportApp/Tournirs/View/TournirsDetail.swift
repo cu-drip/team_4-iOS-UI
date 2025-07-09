@@ -72,7 +72,7 @@ struct TournirsDetail: View {
             
             List {
                 HStack {
-                    Text("Участник 1")
+                    Text("Участники")
                         .padding(.leading)
                     
                     Spacer()
