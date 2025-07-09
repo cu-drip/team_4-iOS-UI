@@ -13,6 +13,7 @@ struct HomeView: View {
     @StateObject var viewModelOfRegistration = RegistrationViewModel()
     @State var isAuthenticated: Bool = false
     
+    
     var body: some View {
         Group {
             if !isAuthenticated {
