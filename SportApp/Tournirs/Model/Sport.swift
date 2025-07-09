@@ -11,7 +11,7 @@ enum Sport {
     case chess
     case tennis
     case boxing
-    case jiu_jitsu
+    case jiujitsu
     
     static func toString(_ sport: Sport) -> String {
         switch sport {
@@ -25,7 +25,7 @@ enum Sport {
             return "Теннис"
         case .boxing:
             return "Бокс"
-        case .jiu_jitsu:
+        case .jiujitsu:
             return "Джиу-джитсу"
         }
     }
@@ -42,8 +42,8 @@ enum Sport {
             return "tennis"
         case .boxing:
             return "boxing"
-        case .jiu_jitsu:
-            return "jiu_jitsu"
+        case .jiujitsu:
+            return "jiu-jitsu"
         }
     }
     
@@ -59,21 +59,21 @@ enum Sport {
             return .tennis
         case "boxing":
             return .boxing
-        case "jiu_jitsu":
-            return .jiu_jitsu
+        case "jiu-jitsu":
+            return .jiujitsu
         default:
             return .football
         }
     }
     
     static let allCases: [Sport: [UserCodingKeys]] = [
-        .football: [.age, .sexIsMan, .mmr],
-        .basketball: [.age, .sexIsMan, .mmr, .height],
-        .chess: [.mmr],
-        .tennis: [.age, .sexIsMan, .mmr, .weight],
-        .boxing: [.weight, .age, .sexIsMan],
-        .jiu_jitsu: [.weight, .age, .sexIsMan]
+        .football: [.age, .sexIsMan, .weight, .height],
+        .basketball: [.age, .sexIsMan, .height, .weight],
+        .chess: [.age, .mmr, .sexIsMan],
+        .tennis: [.age, .sexIsMan, .height, .weight],
+        .boxing: [.age, .sexIsMan, .height, .weight],
+        .jiujitsu: [.age, .sexIsMan, .height, .weight]
     ]
     
-    static let allSports: [Sport] = [.football, .basketball, .chess, .tennis, .boxing, .jiu_jitsu]
+    static let allSports: [Sport] = [.football, .basketball, .chess, .tennis, .boxing, .jiujitsu]
 }
