@@ -15,12 +15,20 @@ struct TournirMaker: View {
     
     @State private var name: String = ""
     @State private var description: String = ""
+    @State private var cost: String = ""
     @State private var selectedSport: Int = 0
     @State private var selectedDate = Date()
     @State private var selectedTime = Date()
+    @State private var selectedGender = 0
+    let genders = ["Мужской", "Женский", "Любой"]
     @State private var minAge: Double = 0
     @State private var maxAge: Double = 100
-    @State private var cost: Double = 0
+    @State private var minWeight: Double = 0
+    @State private var maxWeight: Double = 100
+    @State private var minHeight: Double = 0
+    @State private var maxHeight: Double = 100
+    @State private var minMMR: Double = 500
+    @State private var maxMMR: Double = 3000
 
     private var combinedDateTime: Date {
         let calendar = Calendar.current
@@ -50,41 +58,54 @@ struct TournirMaker: View {
                         coordinator.dismissSheet()
                     }, label: {
                         Text("EXIT")
-                            .padding(16)
+                            .padding(.horizontal, 16)
                             .foregroundColor(.black)
                     })
-                    
-                    Spacer()
+                    Text("Создание соревнования")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(maxWidth: .infinity)
+                        .padding(16)
+                    Text("EXIT")
+                        .padding(.horizontal, 16)
+                        .foregroundColor(.clear)
                 }
+                
+                Text("Заполните информацию о")
+                    .font(.system(size: 26, weight: .semibold))
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 20)
+                    .padding(.horizontal, 10)
+                Text("соревновании")
+                    .font(.system(size: 26, weight: .semibold))
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 10)
+                    .padding(.bottom, 32)
                 
                 ScrollView {
                     CoolerField(placeholder: "Название события", text: $name)
                     
                     CoolerField(placeholder: "Описание события", text: $description)
                     
-                    Picker("Пол", selection: $selectedSport) {
+                    CoolerField(placeholder: "Стоимость участия", text: $cost)
+                    
+                    Picker("Спорт", selection: $selectedSport) {
                         ForEach(0..<Sport.allSports.count, id: \.self) { index in
                             Text(Sport.toString(Sport.allSports[index]))
                                 .tag(index)
                         }
                     }
                     .pickerStyle(MenuPickerStyle())
-                    .frame(height: 50)
+                    .frame(width: 200, height: 50)
                     .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.gray, lineWidth: 1)
-                            .background(
-                                Color(.secondarySystemBackground)
-                                    .cornerRadius(12)
-                            )
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(lineWidth: 1)
                     )
                     .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
+                    .tint(.black)
                     
-                    Slider(value: $cost, in: 0...100000) {
-                        Text("\(Int(cost))")
-                    }
-                    
-                    Text("Выберите дату:")
+                    Text("Выберите дату")
+                        .font(.system(size: 20, weight: .medium))
                     DatePicker(
                         "Дата",
                         selection: $selectedDate,
@@ -92,20 +113,62 @@ struct TournirMaker: View {
                     )
                     .datePickerStyle(GraphicalDatePickerStyle())
 
-                    Text("Выберите время:")
                     DatePicker(
-                        "Время",
+                        "Время начала",
                         selection: $selectedTime,
                         displayedComponents: [.hourAndMinute]
                     )
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 8)
+                    
+                    Text("расписание будет сгенерировано автоматически")
+                        .foregroundColor(.blue)
+                        .padding(.bottom, 16)
 
                     Divider()
+                        .padding(.bottom, 16)
                     
-                    Text("Параметры для людей")
+                    Text("Критерии для участников")
+                        .font(.system(size: 20, weight: .medium))
+                        .padding(.bottom, 16)
+                    
+                    if parametrs.contains(.sexIsMan) {
+                        HStack {
+                            Text("Пол участников:")
+                            Picker("Пол", selection: $selectedGender) {
+                                ForEach(0..<genders.count, id: \.self) { index in
+                                    Text(genders[index])
+                                }
+                            }
+                        }
+                    }
                     
                     if parametrs.contains(.age) {
                         RangeSliderView(name: "Возраст", lowerBound: $minAge, upperBound: $maxAge, range: 0...100)
+                            .padding(.horizontal, 32)
+                            .padding(.bottom, 16)
                     }
+
+                    if parametrs.contains(.weight) {
+                        RangeSliderView(name: "Вес", lowerBound: $minWeight, upperBound: $maxWeight, range: 0...100)
+                            .padding(.horizontal, 32)
+                            .padding(.bottom, 16)
+                    }
+                    
+                    if parametrs.contains(.height) {
+                        RangeSliderView(name: "Рост", lowerBound: $minHeight, upperBound: $maxHeight, range: 0...100)
+                            .padding(.horizontal, 32)
+                            .padding(.bottom, 16)
+                    }
+                    
+                    if parametrs.contains(.mmr) {
+                        RangeSliderView(name: "MMR", lowerBound: $minMMR, upperBound: $maxMMR, range: 500...3000)
+                            .padding(.horizontal, 32)
+                            .padding(.bottom, 16)
+                    }
+                    Spacer()
+                        .frame(height: 100)
+                    
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             }
@@ -114,14 +177,17 @@ struct TournirMaker: View {
                 Spacer()
                 
                 Button(action: {
-                    let tourinr: Tournir = Tournir(title: name, description: description, sport: Sport.toStringEng(Sport.allSports[selectedSport]), type_group: .olympic, type_tournir: .solo, start_time: combinedDateTime, created_at: Date(), entry_cost: cost, is_team_based: true, place: "", max_participants: 10, organizer_id: UUID(), requirements: Requirements())
+                    let tourinr: Tournir = Tournir(title: name, description: description, sport: Sport.toStringEng(Sport.allSports[selectedSport]), type_group: .olympic, type_tournir: .solo, start_time: combinedDateTime, created_at: Date(), entry_cost: Double(cost) ?? 0, is_team_based: true, place: "", max_participants: 10, organizer_id: UUID(), requirements: Requirements())
                     viewModel.tournirs.append(tourinr)
                     viewModel.giveTournir(tournir: tourinr)
                     coordinator.dismissSheet()
                 }, label: {
-                    Text("COZDATb")
+                    Text("Создать")
+                        .frame(width: 200, height: 50)
+                        .background(.blue)
+                        .cornerRadius(22)
                         .padding(16)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                 })
             }
         }
@@ -170,8 +236,8 @@ struct RangeSliderView: View {
                 ZStack(alignment: .leading) {
                     // Фон
                     Rectangle()
-                        .frame(height: 10)
-                        .foregroundColor(Color.gray.opacity(0.3))
+                        .frame(height: 4)
+                        .foregroundColor(.gray)
                         .cornerRadius(5)
 
                     // Заполнение между ползунками
@@ -179,14 +245,14 @@ struct RangeSliderView: View {
                         .fill(Color.blue)
                         .frame(
                             width: CGFloat(upperPercentage(geometry.size.width)) - CGFloat(lowerPercentage(geometry.size.width)),
-                            height: 10
+                            height: 4
                         )
                         .offset(x: CGFloat(lowerPercentage(geometry.size.width)), y: 0)
 
                     // Левый ползунок
                     Circle()
                         .fill(Color.blue)
-                        .frame(width: 24, height: 24)
+                        .frame(width: 21, height: 21)
                         .offset(x: CGFloat(lowerPercentage(geometry.size.width)) - 12, y: 0)
                         .gesture(
                             DragGesture()
@@ -199,7 +265,7 @@ struct RangeSliderView: View {
                     // Правый ползунок
                     Circle()
                         .fill(Color.blue)
-                        .frame(width: 24, height: 24)
+                        .frame(width: 21, height: 21)
                         .offset(x: CGFloat(upperPercentage(geometry.size.width)) - 12, y: 0)
                         .gesture(
                             DragGesture()
