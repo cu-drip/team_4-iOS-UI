@@ -357,6 +357,24 @@ struct ProfileView: View {
                     }
                 }
                 
+                if isEditing {
+                    Button(action: {
+                        // Здесь можно добавить логику сохранения, если нужно
+                        isEditing = false
+                    }) {
+                        Text("Сохранить")
+                            .font(.system(size: 20, weight: .semibold))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .padding(.horizontal, 20)
+                            .padding(.top, 10)
+                    }
+                }
+
+                
                 Spacer()
             }
         }
