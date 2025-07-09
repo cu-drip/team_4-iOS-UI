@@ -15,8 +15,9 @@ struct TournirsListView: View {
         VStack {
             HStack {
                 if coordinator.user.isAdmin == true {
-                    Text("   ")
+                    Image(systemName: "plus")
                         .padding(16)
+                        .foregroundColor(.clear)
                 }
                 
                 Scatual()
