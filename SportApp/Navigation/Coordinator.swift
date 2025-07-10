@@ -11,7 +11,7 @@ import Combine
 class Coordinator: ObservableObject {
     @Published var tournirListPath = NavigationPath()
     @Published var presentedSheet: ModalSheet?
-    @Published var user: User = User(phio: "", password: "", email: "", isAdmin: false)
+    @Published var user: User = User(id: UUID(), phio: "", password: "", email: "", isAdmin: false)
     @Published var currentTournir: Tournir?
     
     func presentSheet(_ sheet: ModalSheet) {
@@ -30,6 +30,27 @@ class Coordinator: ObservableObject {
         currentTournir?.users.append(user)
         if currentTournir != nil{
             print(currentTournir!.users)
+        }
+    }
+    
+    func updateUser() {
+        Task {
+            let userEndpoint = UserPatchEndpoint(userId: user.id.uuidString)
+            let userRequest = UserDTO(user: user)
+            //userRequest.age = 123456789
+            
+            //print(user.id.uuidString)
+            //print(userRequest)
+            
+            do {
+                let _: UserDTO = try await NetworkService.shared.request(
+                    endpoint: userEndpoint,
+                    requestDTO: userRequest
+                )
+                //print(respone)
+            } catch {
+                print(error)
+            }
         }
     }
 }

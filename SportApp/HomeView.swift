@@ -27,14 +27,26 @@ struct HomeView: View {
             sheetView(for: sheet)
                 .interactiveDismissDisabled(true)
         }
-        .onAppear() {
-            if let token = UserDefaults.standard.string(forKey: "auth_token") {
-                if viewModelOfRegistration.getTokenExpiration(token) ?? Date() > Date() {
-                    isAuthenticated = true
-                    viewModelOfRegistration.token = token
-                }
-            }
-        }
+//        .onAppear() {
+//            if let token = UserDefaults.standard.string(forKey: "auth_token") {
+//                print(token + "        aaaaaaaaaaaaaa")
+//                if viewModelOfRegistration.getTokenExpiration(token) ?? Date() > Date() {
+//                    isAuthenticated = true
+//                    viewModelOfRegistration.token = token
+//                    viewModelOfRegistration.loadUser(token)
+//                    //coordinator.user = viewModelOfRegistration.user
+//                    print(0)
+//                }
+//            }
+//        }
+//        .onChange(of: viewModelOfRegistration.user) {
+//            if let user = viewModelOfRegistration.user {
+//                coordinator.user = user
+//                print(1111111111)
+//                print(user)
+//                print(1111111111)
+//            }
+//        }
     }
     
     var tabbar: some View {
