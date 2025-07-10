@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var coordinator: Coordinator
+    @EnvironmentObject var viewModelOfRegistration: RegistrationViewModel
+    @Binding var isActive: Bool
     @State private var isEditing = false
     
     var body: some View {
@@ -379,6 +381,26 @@ struct ProfileView: View {
                 
                 Spacer()
             }
+            
+            Button(action: {
+                logout()
+            }) {
+                Text("Выйти из аккаунта")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 10)
+            }
         }
+    }
+    
+    func logout() {
+        UserDefaults.standard.removeObject(forKey: "token")
+        isActive = false
+        viewModelOfRegistration.token = nil
     }
 }

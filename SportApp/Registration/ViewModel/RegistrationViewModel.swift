@@ -64,7 +64,9 @@ class RegistrationViewModel: ObservableObject {
                     self.token = newToken
                     print(self.token ?? "nil")
                     NetworkService.shared.token = token
+                    UserDefaults.standard.set(newToken, forKey: "auth_token")
                     //JWTDecodeFunc(jwt: newToken)
+                    print(getTokenExpiration(newToken))
                 }
             } catch {
                 print(error)
@@ -95,6 +97,16 @@ class RegistrationViewModel: ObservableObject {
             
         } catch {
             print("❌ Failed to decode token: \(error)")
+        }
+    }
+    
+    func getTokenExpiration(_ token: String) -> Date? {
+        do {
+            let jwt = try decode(jwt: token)
+            return jwt["exp"].date
+        } catch {
+            print("Ошибка декодирования токена: $error)")
+            return nil
         }
     }
 }

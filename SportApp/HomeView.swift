@@ -27,6 +27,14 @@ struct HomeView: View {
             sheetView(for: sheet)
                 .interactiveDismissDisabled(true)
         }
+        .onAppear() {
+            if let token = UserDefaults.standard.string(forKey: "auth_token") {
+                if viewModelOfRegistration.getTokenExpiration(token) ?? Date() > Date() {
+                    isAuthenticated = true
+                    viewModelOfRegistration.token = token
+                }
+            }
+        }
     }
     
     var tabbar: some View {
@@ -46,8 +54,9 @@ struct HomeView: View {
             .tag(0) // исправить потом
 
             NavigationStack() {
-                ProfileView()
+                ProfileView(isActive: $isAuthenticated)
                     .environmentObject(coordinator)
+                    .environmentObject(viewModelOfRegistration)
             }
             .tabItem {
                 Label("Профиль", systemImage: "person.crop.circle")

@@ -92,7 +92,6 @@ struct RegistrationShieldView: View {
                         if isEmailValid {
                             let user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
                             registrationViewModel.login(user: user)
-                            dismiss(user: user)
                         }
                     }, label: {
                         Text("Войти")
@@ -169,6 +168,12 @@ struct RegistrationShieldView: View {
             }.accessibilityIdentifier("registerButton")
         }
         .background(Color(red: 248/255, green: 247/255, blue: 255/255))
+        .onChange(of: registrationViewModel.token) { _, _ in
+            if registrationViewModel.token != nil {
+                let user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
+                dismiss(user: user)
+            }
+        }
     }
     
     func dismiss(user: User) {
