@@ -8,7 +8,7 @@
 import Foundation
 
 struct Tournir: Codable, Identifiable, Hashable {
-    var id = UUID()
+    var id: UUID
     var title: String
     var description: String
     var sport: String
