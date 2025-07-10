@@ -26,6 +26,7 @@ struct RegistrationView: View {
                         coordinator.user.isAdmin = false
                     }, label: {
                         Text("Участник")
+                            .accessibilityIdentifier("participant")
                             .font(.system(size: 22))
                             .frame(width: 400, height: 50)
                             .foregroundColor(.black)
@@ -39,6 +40,7 @@ struct RegistrationView: View {
                         coordinator.user.isAdmin = true
                     }, label: {
                         Text("Организатор")
+                            .accessibilityIdentifier("admin")
                             .font(.system(size: 22))
                             .frame(width: 400, height: 50)
                             .foregroundColor(.black)

@@ -22,6 +22,7 @@ struct ProfileView: View {
                             Image(systemName: "gear")
                                 .foregroundColor(.blue)
                         }
+                        .accessibilityIdentifier("EditButton")
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
@@ -46,6 +47,7 @@ struct ProfileView: View {
                         get: { coordinator.user.phone ?? "" },
                         set: { coordinator.user.phone = $0 }
                     ))
+                    .accessibilityIdentifier("PhoneTextField")
                     .font(.system(size: 21, weight: .medium))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
