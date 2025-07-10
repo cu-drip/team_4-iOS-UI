@@ -29,9 +29,9 @@ struct User: Identifiable, Hashable, Codable {
             self.id = UUID()
         }
 
-        var fullName = dto.name + dto.surname == "" ? "" : " " + dto.surname
+        var fullName = dto.name + (dto.surname == "" ? "" : " " + dto.surname)
         if let patronymic = dto.patronymic, !patronymic.isEmpty {
-            fullName += " $patronymic)"
+            fullName += " \(patronymic)"
         }
         self.phio = fullName
 
