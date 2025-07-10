@@ -12,7 +12,7 @@ struct UserDTO: Codable {
     var name: String
     var surname: String
     var patronymic: String?
-    var phone_number: String?
+    var phoneNumber: String?
     var email: String
     var hashedPassword: String
     var dateOfBirth: String?
@@ -51,7 +51,7 @@ struct UserDTO: Codable {
             self.patronymic = String(components[2])
         }
 
-        self.phone_number = user.phone
+        self.phoneNumber = user.phone
         self.dateOfBirth = nil
         self.age = user.age
         self.sex = user.sexIsMan.map { $0 ? "male" : "female" }
