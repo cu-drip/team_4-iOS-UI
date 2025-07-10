@@ -85,6 +85,7 @@ final class RegistrationUITests: XCTestCase {
         XCTAssertTrue(submitButton.waitForExistence(timeout: 5))
         
         
+        
         submitButton.tap()
         
         
