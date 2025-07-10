@@ -84,6 +84,7 @@ final class RegistrationUITests: XCTestCase {
         let submitButton = app.buttons["submitRegistrationButton"]
         XCTAssertTrue(submitButton.waitForExistence(timeout: 5))
         
+        
         submitButton.tap()
         
         
