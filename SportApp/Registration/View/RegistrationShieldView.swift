@@ -40,6 +40,7 @@ struct RegistrationShieldView: View {
                 
                 if isLogInPressed {
                     TextField(" ФИО", text: $phio)
+                        .accessibilityIdentifier("phioField")
                         .padding()
                         .frame(width: 406, height: 53)
                         .background(.white)
@@ -48,6 +49,7 @@ struct RegistrationShieldView: View {
                 }
                 
                 TextField(" Электронная почта", text: $email)
+                    .accessibilityIdentifier("emailField")
                     .padding()
                     .frame(width: 406, height: 53)
                     .background(.white)
@@ -67,6 +69,7 @@ struct RegistrationShieldView: View {
                 }
                 
                 SecureField(" Введите пароль", text: $password)
+                    .accessibilityIdentifier("passwordField")
                     .padding()
                     .frame(width: 406, height: 53)
                     .background(.white)
@@ -75,6 +78,7 @@ struct RegistrationShieldView: View {
                 
                 if isLogInPressed {
                     SecureField(" Подтвердите пароль", text: $passwordCheck)
+                        .accessibilityIdentifier("passwordCheckField")
                         .padding()
                         .frame(width: 406, height: 53)
                         .background(.white)
@@ -108,6 +112,7 @@ struct RegistrationShieldView: View {
                         }
                     }, label: {
                         Text("Зарегистрироваться")
+                            .accessibilityIdentifier("submitRegistrationButton")
                             .frame(width: 192, height: 35)
                             .background(Color.white)
                             .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
@@ -161,7 +166,7 @@ struct RegistrationShieldView: View {
                         }
                     })
                 }
-            }
+            }.accessibilityIdentifier("registerButton")
         }
         .background(Color(red: 248/255, green: 247/255, blue: 255/255))
     }
