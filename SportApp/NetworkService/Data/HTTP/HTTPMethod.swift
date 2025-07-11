@@ -10,4 +10,5 @@ struct HTTPMethod {
     static let post = "POST"
     static let put = "PUT"
     static let delete = "DELETE"
+    static let patch = "PATCH"
 }
