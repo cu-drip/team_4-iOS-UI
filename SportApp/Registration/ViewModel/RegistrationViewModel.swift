@@ -11,6 +11,7 @@ import JWTDecode
 
 class RegistrationViewModel: ObservableObject {
     @Published var token: String?
+    @Published var user: User?
     
     func register(user: User) {
         Task {
@@ -20,9 +21,20 @@ class RegistrationViewModel: ObservableObject {
                             
                 await MainActor.run {
                     self.token = newToken
-                    print(self.token ?? "nil")
+                    //print(self.token ?? "nil")
                 }
-                print(userDTO)
+                
+                let jwt = try decode(jwt: newToken)
+                guard let idUser = jwt["sub"].string else { return }
+                //userDTO.id = idUser
+                
+                await MainActor.run {
+                    var user1 = userDTO
+                    user1.id = idUser
+                    self.user = User(dto: user1)
+                }
+                
+                //print(userDTO)
             } catch {
                 print(error)
             }
@@ -42,8 +54,6 @@ class RegistrationViewModel: ObservableObject {
     }
     
     func getTocken(user: User) async throws -> String {
-        //let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlNjZiODE2Yi0yNTM3LTQ2MDQtYmE0My02NWI3ZTFmNTJmMjIiLCJlbWFpbCI6Inl1MUBleGFtcGxlLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImlhdCI6MTc1MjA1Mzg3MiwiZXhwIjoxNzUyMTQwMjcyfQ.MspIFQmpivZe8C99sD1RYAZB7TpeIoIA4JYGizvtfy8"
-        
         let loginEndpoint = LoginEndpoint()
         let loginRequest = LoginRequest(user: user)
         
@@ -62,9 +72,16 @@ class RegistrationViewModel: ObservableObject {
                 
                 await MainActor.run {
                     self.token = newToken
-                    print(self.token ?? "nil")
+                    //print(self.token ?? "nil")
                     NetworkService.shared.token = token
+                    UserDefaults.standard.set(newToken, forKey: "auth_token")
                     //JWTDecodeFunc(jwt: newToken)
+                    //print(getTokenExpiration(newToken))
+                    //print(getTokenID(newToken) ?? "aaa")
+                }
+                
+                if let token = token {
+                    loadUser(token)
                 }
             } catch {
                 print(error)
@@ -95,6 +112,49 @@ class RegistrationViewModel: ObservableObject {
             
         } catch {
             print("❌ Failed to decode token: \(error)")
+        }
+    }
+    
+    func getTokenExpiration(_ token: String) -> Date? {
+        do {
+            let jwt = try decode(jwt: token)
+            return jwt["exp"].date
+        } catch {
+            print("Ошибка декодирования токена: $error)")
+            return nil
+        }
+    }
+    
+    
+    func loadUser(_ token: String) {
+        Task {
+            do {
+                let jwt = try decode(jwt: token)
+                guard let idUser = jwt["sub"].string else { return }
+                
+                let userEndpoint = UserEndpoint(userId: idUser)
+                let userRequest = UserRequest()
+                
+                let userResponses: UserDTO = try await NetworkService.shared.request(
+                    endpoint: userEndpoint,
+                    requestDTO: userRequest
+                )
+                await MainActor.run {
+                    user = User(dto: userResponses)
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func getTokenID(_ token: String) -> String? {
+        do {
+            let jwt = try decode(jwt: token)
+            return jwt["sub"].string
+        } catch {
+            print("Ошибка декодирования токена: $error)")
+            return nil
         }
     }
 }

@@ -12,6 +12,8 @@ struct RegistrationShieldView: View {
     @State var isLogInPressed = false
     
     @State private var isEmailValid: Bool = true
+    @State var isButtonPressed = false
+    @State private var isAnimating = false
 
     var body: some View {
         VStack {
@@ -40,6 +42,7 @@ struct RegistrationShieldView: View {
                 
                 if isLogInPressed {
                     TextField(" ФИО", text: $phio)
+                        .accessibilityIdentifier("phioField")
                         .padding()
                         .frame(width: 406, height: 53)
                         .background(.white)
@@ -48,6 +51,7 @@ struct RegistrationShieldView: View {
                 }
                 
                 TextField(" Электронная почта", text: $email)
+                    .accessibilityIdentifier("emailField")
                     .padding()
                     .frame(width: 406, height: 53)
                     .background(.white)
@@ -67,6 +71,7 @@ struct RegistrationShieldView: View {
                 }
                 
                 SecureField(" Введите пароль", text: $password)
+                    .accessibilityIdentifier("passwordField")
                     .padding()
                     .frame(width: 406, height: 53)
                     .background(.white)
@@ -75,6 +80,7 @@ struct RegistrationShieldView: View {
                 
                 if isLogInPressed {
                     SecureField(" Подтвердите пароль", text: $passwordCheck)
+                        .accessibilityIdentifier("passwordCheckField")
                         .padding()
                         .frame(width: 406, height: 53)
                         .background(.white)
@@ -82,13 +88,28 @@ struct RegistrationShieldView: View {
                         .padding(.bottom, 5)
                 }
                 
+                if isButtonPressed {
+                    Circle()
+                        .trim(from: 0, to: 0.8) // Обрезаем круг для эффекта "полукольца"
+                        .stroke(
+                            AngularGradient(gradient: Gradient(colors: [.white, .gray, .white]), center: .center),
+                            lineWidth: 5
+                        )
+                        .frame(width: 25, height: 25)
+                        .rotationEffect(Angle(degrees: isAnimating ? 360 : 0))
+                        .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: isAnimating)
+                        .onAppear {
+                            isAnimating = true
+                        }
+                }
+                
                 if !isLogInPressed {
                     Button(action: {
                         isEmailValid = validateEmail(email)
                         if isEmailValid {
-                            let user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
+                            let user = User(id: UUID(), phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
                             registrationViewModel.login(user: user)
-                            dismiss(user: user)
+                            isButtonPressed = true
                         }
                     }, label: {
                         Text("Войти")
@@ -97,23 +118,25 @@ struct RegistrationShieldView: View {
                             .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
                             .cornerRadius(22)
                     })
-                    .disabled(!isEmailValid)
+                    .disabled(!isEmailValid || isButtonPressed)
                 } else {
                     Button(action: {
                         isEmailValid = validateEmail(email)
                         if password == passwordCheck && isEmailValid {
-                            let user = User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
+                            let user = User(id: UUID(), phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
                             registrationViewModel.register(user: user)
-                            dismiss(user: user)
+                            isButtonPressed = true
+                            //dismiss(user: user)
                         }
                     }, label: {
                         Text("Зарегистрироваться")
+                            .accessibilityIdentifier("submitRegistrationButton")
                             .frame(width: 192, height: 35)
                             .background(Color.white)
                             .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
                             .cornerRadius(22)
                     })
-                    .disabled(!isEmailValid)
+                    .disabled(!isEmailValid || isButtonPressed)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -122,6 +145,7 @@ struct RegistrationShieldView: View {
                 if !isLogInPressed {
                     Button(action: {
                         isLogInPressed.toggle()
+                        isButtonPressed = false
                     }, label: {
                         if coordinator.user.isAdmin == false {
                             VStack {
@@ -161,9 +185,14 @@ struct RegistrationShieldView: View {
                         }
                     })
                 }
-            }
+            }.accessibilityIdentifier("registerButton")
         }
         .background(Color(red: 248/255, green: 247/255, blue: 255/255))
+        .onChange(of: registrationViewModel.user) { _, _ in
+            if let user = registrationViewModel.user {
+                dismiss(user: user)
+            }
+        }
     }
     
     func dismiss(user: User) {
