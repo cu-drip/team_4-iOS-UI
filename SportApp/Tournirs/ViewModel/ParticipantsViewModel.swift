@@ -10,7 +10,7 @@ import Combine
 
 @MainActor
 class ParticipantsViewModel: ObservableObject {
-    @Published var participants: [ParticipantDTO] = []
+    @Published var participants: [UserDTO] = []
     
     func loadParticipants(for tournamentID: String) {
         Task {
@@ -23,11 +23,11 @@ class ParticipantsViewModel: ObservableObject {
         }
     }
     
-    func fetchParticipants(tournamentID: String) async throws -> [ParticipantDTO] {
+    func fetchParticipants(tournamentID: String) async throws -> [UserDTO] {
         let participantEndpoint = ParticipantEndpoint(tournamentID: tournamentID)
         let participantRequest = ParticipantRequest()
         
-        var participantResponses = [ParticipantDTO]()
+        var participantResponses = [UserDTO]()
         participantResponses = try await NetworkService.shared.request(
             endpoint: participantEndpoint,
             requestDTO: participantRequest
@@ -46,7 +46,7 @@ class ParticipantsViewModel: ObservableObject {
                     endpoint: participantEndpoint,
                     requestDTO: participantRequest
                 )
-                print(respone)
+                print(син)
             } catch {
                 print(error)
             }

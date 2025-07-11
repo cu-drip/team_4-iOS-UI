@@ -43,8 +43,8 @@ struct Requirements: Codable, Hashable {
         heightMax = 200
         weightMin = 0
         weightMax = 100
-        mmrMin = 0
-        mmrMax = 10000
+        mmrMin = 500
+        mmrMax = 3000
     }
 }
 
