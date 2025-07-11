@@ -74,7 +74,8 @@ class RegistrationViewModel: ObservableObject {
                     self.token = newToken
                     //print(self.token ?? "nil")
                     NetworkService.shared.token = token
-                    UserDefaults.standard.set(newToken, forKey: "auth_token")
+                    KeyСhainManager.shared.saveToken(newToken)
+                    //UserDefaults.standard.set(newToken, forKey: "auth_token")
                     //JWTDecodeFunc(jwt: newToken)
                     //print(getTokenExpiration(newToken))
                     //print(getTokenID(newToken) ?? "aaa")
