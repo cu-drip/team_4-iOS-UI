@@ -23,6 +23,27 @@ struct Tournir: Codable, Identifiable, Hashable {
     var organizer_id: UUID
     var users: [User] = []
     var requirements: Requirements
+    var tournirInstaseState: TournirInstaseState = .openedRegistrationTournaments
+}
+
+enum TournirInstaseState: Codable, Identifiable, Hashable {
+    case pastTournament
+    case ongoingTournaments
+    case closedRegistrationTournaments
+    case openedRegistrationTournaments
+    
+    var id: Int {
+        switch self {
+        case .pastTournament:
+            return 1
+        case .ongoingTournaments:
+            return 2
+        case .closedRegistrationTournaments:
+            return 3
+        case .openedRegistrationTournaments:
+            return 4
+        }
+    }
 }
 
 struct Requirements: Codable, Hashable {
