@@ -15,4 +15,5 @@ struct APIRoutes {
     let login: String = "/api/v1/auth/login"
     let register: String = "/api/v1/auth/register"
     let getUserInfo: String = "/api/v1/users/<id>"
+    let getParticipants: String = "/api/v1/tournaments/{id}/participants"
 }

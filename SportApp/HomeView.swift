@@ -64,6 +64,14 @@ struct HomeView: View {
                 Label("Главная", systemImage: "house.fill")
             }
             .tag(0) // исправить потом
+            
+            NavigationStack() {
+                EmptyView()
+            }
+            .tabItem {
+                Label("Мои матчи", systemImage: "pawprint.circle.fill")
+            }
+            .tag(1)
 
             NavigationStack() {
                 ProfileView(isActive: $isAuthenticated)
@@ -73,7 +81,8 @@ struct HomeView: View {
             .tabItem {
                 Label("Профиль", systemImage: "person.crop.circle")
             }
-            .tag(1) 
+
+            .tag(2)
         }
     }
     

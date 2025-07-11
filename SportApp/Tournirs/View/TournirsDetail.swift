@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TournirsDetail: View {
     @EnvironmentObject var coordinator: Coordinator
+    @StateObject var viewModel = ParticipantsViewModel()
     
     var body: some View {
         VStack {
@@ -68,7 +69,6 @@ struct TournirsDetail: View {
                 .frame(height: 1)
                 .padding(.horizontal, 12)
             
-            Text("Участники")
             
             List {
                 HStack {
@@ -76,20 +76,11 @@ struct TournirsDetail: View {
                         .padding(.leading)
                     
                     Spacer()
-                    
-                    Text("MMR")
-                        .padding(.trailing)
                 }
-                
-                ForEach(coordinator.currentTournir!.users, id: \.id) { user in
-                    HStack {
-                        Text(user.phio)
-                            .padding(.leading)
-                        
-                        Spacer()
-                        
-                        Text(String(Int(user.mmr ?? 0)))
-                            .padding(.trailing)
+                ScrollView {
+                    ForEach(viewModel.participants, id: \.id) { participant in
+                        Text(participant.name)
+                            .padding()
                     }
                 }
             }
@@ -110,6 +101,9 @@ struct TournirsDetail: View {
             Spacer()
         }
         .navigationTitle("О соревновании")
+        .onAppear() {
+            viewModel.loadParticipants(for: coordinator.currentTournir!.id.uuidString)
+        }
 
     }
 }

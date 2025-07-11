@@ -22,7 +22,7 @@ class TournirsViewModel: ObservableObject {
             do {
                 tournirs = try await fetchTournirs()
             } catch {
-                tournirs = loadMockTournirs()
+                tournirs = []
             }
         }
     }
@@ -42,7 +42,7 @@ class TournirsViewModel: ObservableObject {
         }
             
         let mappedEvents = tournirResponses.map { dto -> Tournir in
-            Tournir(title: dto.title ?? "Unnamed", description: dto.description ?? "", sport: dto.sport ?? "Chess", type_group: TypeTournir.fromString(dto.typeGroup ?? ""), type_tournir: TypeIsTeam.fromString(dto.typeTournament ?? ""), start_time: Date(), created_at: Date(), entry_cost: Double(dto.entryCost ?? 0), is_team_based: true, place: dto.place ?? "", max_participants: Int(dto.maxParticipants ?? 0), organizer_id: UUID(), requirements: Requirements())
+            Tournir(id: UUID(uuidString: dto.id) ?? UUID(), title: dto.title ?? "Unnamed", description: dto.description ?? "", sport: dto.sport ?? "Chess", type_group: TypeTournir.fromString(dto.typeGroup ?? ""), type_tournir: TypeIsTeam.fromString(dto.typeTournament ?? ""), start_time: Date(), created_at: Date(), entry_cost: Double(dto.entryCost ?? 0), is_team_based: true, place: dto.place ?? "", max_participants: Int(dto.maxParticipants ?? 0), organizer_id: UUID(), requirements: Requirements())
         }
         return mappedEvents
     }
@@ -63,7 +63,7 @@ class TournirsViewModel: ObservableObject {
             }
         }
     }
-    
+    /*
     func loadMockTournirs() -> [Tournir] {
         let x = [
                 Tournir(
@@ -144,4 +144,5 @@ class TournirsViewModel: ObservableObject {
             ]
         return x
     }
+     */
 }
