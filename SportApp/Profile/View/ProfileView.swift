@@ -327,9 +327,13 @@ struct ProfileView: View {
                 }
             }
         }
-        .onAppear {
+        .onAppear() {
             loadUserData()
         }
+//        .onChange(of: viewModelOfRegistration.user) {
+//            loadUserData()
+//            print($0)
+//        }
     }
 
     // Загружаем данные пользователя в @State переменные
@@ -362,7 +366,8 @@ struct ProfileView: View {
 
     // Выход
     func logout() {
-        UserDefaults.standard.removeObject(forKey: "auth_token")
+        //UserDefaults.standard.removeObject(forKey: "auth_token")
+        KeyСhainManager.shared.deleteToken()
         isActive = false
         viewModelOfRegistration.token = nil
         viewModelOfRegistration.user = nil

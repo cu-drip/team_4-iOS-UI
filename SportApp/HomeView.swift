@@ -28,7 +28,7 @@ struct HomeView: View {
                 .interactiveDismissDisabled(true)
         }
 //        .onAppear() {
-//            if let token = UserDefaults.standard.string(forKey: "auth_token") {
+//            if let token = KeyСhainManager.shared.getToken() {
 //                print(token + "        aaaaaaaaaaaaaa")
 //                if viewModelOfRegistration.getTokenExpiration(token) ?? Date() > Date() {
 //                    isAuthenticated = true

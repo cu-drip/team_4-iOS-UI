@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3153F0FA2E211AF60032B87D /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 3153F0F92E211AF60032B87D /* KeychainAccess */; };
 		319C0F1D2E1EAC3900BF7D83 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 319C0F1C2E1EAC3900BF7D83 /* JWTDecode */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3153F0FA2E211AF60032B87D /* KeychainAccess in Frameworks */,
 				319C0F1D2E1EAC3900BF7D83 /* JWTDecode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,6 +141,7 @@
 			name = SportApp;
 			packageProductDependencies = (
 				319C0F1C2E1EAC3900BF7D83 /* JWTDecode */,
+				3153F0F92E211AF60032B87D /* KeychainAccess */,
 			);
 			productName = SportApp;
 			productReference = 310422A42E14371C00D64B73 /* SportApp.app */;
@@ -224,6 +227,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				319C0F1B2E1EAC3900BF7D83 /* XCRemoteSwiftPackageReference "JWTDecode" */,
+				3153F0F82E211A820032B87D /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 310422A52E14371C00D64B73 /* Products */;
@@ -631,6 +635,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3153F0F82E211A820032B87D /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		319C0F1B2E1EAC3900BF7D83 /* XCRemoteSwiftPackageReference "JWTDecode" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/JWTDecode.swift";
@@ -642,6 +654,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3153F0F92E211AF60032B87D /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3153F0F82E211A820032B87D /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		319C0F1C2E1EAC3900BF7D83 /* JWTDecode */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 319C0F1B2E1EAC3900BF7D83 /* XCRemoteSwiftPackageReference "JWTDecode" */;
