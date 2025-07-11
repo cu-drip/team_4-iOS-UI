@@ -97,6 +97,14 @@ struct TournirsDetail: View {
                     Text("Зарегистрироваться")
                         .padding()
                 }
+            } else {
+                Button(action: {
+                    // сохранять в нормальное место
+                    coordinator.currentTournir!.tournirInstaseState = TournirInstaseState.nextState(coordinator.currentTournir!.tournirInstaseState)
+                }, label: {
+                    Text(coordinator.currentTournir!.tournirInstaseState.rawValue)
+                        .padding()
+                })
             }
             Spacer()
         }

@@ -26,7 +26,7 @@ struct Tournir: Codable, Identifiable, Hashable {
     var tournirInstaseState: TournirInstaseState = .openedRegistrationTournaments
 }
 
-enum TournirInstaseState: Codable, Identifiable, Hashable {
+enum TournirInstaseState: String, Codable, Identifiable, Hashable {
     case pastTournament
     case ongoingTournaments
     case closedRegistrationTournaments
@@ -42,6 +42,19 @@ enum TournirInstaseState: Codable, Identifiable, Hashable {
             return 3
         case .openedRegistrationTournaments:
             return 4
+        }
+    }
+    
+    static func nextState(_ state: TournirInstaseState) -> TournirInstaseState {
+        switch state {
+        case .openedRegistrationTournaments:
+            return .closedRegistrationTournaments
+        case .closedRegistrationTournaments:
+            return .ongoingTournaments
+        case .ongoingTournaments:
+            return .pastTournament
+        case .pastTournament:
+            return .pastTournament
         }
     }
 }

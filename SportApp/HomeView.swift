@@ -65,8 +65,13 @@ struct HomeView: View {
             }
             .tag(0) // исправить потом
             
-            NavigationStack() {
-                EmptyView()
+            NavigationStack(path: $coordinator.statListPath) {
+                StatisticsView(viewModelOfStatistic: StatisticViewModel(tournirsVM: viewModelOfTournirs, coordinator: coordinator))
+                    .environmentObject(coordinator)
+                    .navigationDestination(for: Tournir.self) { detail in
+                        TournirsDetail()
+                            .environmentObject(coordinator)
+                    }
             }
             .tabItem {
                 Label("Мои матчи", systemImage: "pawprint.circle.fill")
