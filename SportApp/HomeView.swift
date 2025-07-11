@@ -81,7 +81,6 @@ struct HomeView: View {
             .tabItem {
                 Label("Профиль", systemImage: "person.crop.circle")
             }
-
             .tag(2)
         }
     }
