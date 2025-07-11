@@ -196,6 +196,8 @@ struct RegistrationShieldView: View {
     }
     
     func dismiss(user: User) {
+        var user = user
+        user.isAdmin = coordinator.user.isAdmin
         coordinator.user = user//User(phio: phio, password: password, email: email, isAdmin: coordinator.user.isAdmin)
         coordinator.dismissSheet()
         isAuthenticated = true

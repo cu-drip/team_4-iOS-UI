@@ -153,5 +153,7 @@ struct TournirRegistration: View {
         if bio != "" {
             coordinator.user.bio = bio
         }
+        
+        coordinator.updateUser()
     }
 }
