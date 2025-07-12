@@ -50,46 +50,48 @@
   },
 
   "GET /api/v1/MatchStats/{id}": {
-    "description": "Получить статистику матчей по id турнира",
+    "description": "Получить список матчей с их статистикой по id турнира",
     "params": {
       "id": "String"
     },
     "response": {
       "tournamentID": "String",
+      "matchID": "String"
+      "first": "User" // User - (id, nme, surname, patronymic, phoneNumber, email, hashedPassword, dateOfBirth, age, sex, weight, height, creatdAt, bio, avatarUrl, admin)
+      "second": "User"
       "sport": "String?",
-      "timePlayed": "hashmap{"String": "Double"}",
-      "goals": "hashmap{"String": "Int"}",
-      "assists": "hashmap{"String": "Int"}",
-      "fouls": "hashmap{"String": "Int"}",
-      "points": "hashmap{"String": "Int"}",
-      "knockdowns": "hashmap{"String": "Int"}",
-      "setsWon": "hashmap{"String": "Int"}",
-      "yellowCards": "hashmap{"String": "Int"}",
-      "wins": "hashmap{"String": "Int"}",
-      "loses": "hashmap{"String": "Int"}",
-      "winnerID": "String?"
+      "timePlayed": "Int?",
+      "goals": "(Int, Int)?", // список из двух интов
+      "assists": "(Int, Int)?",
+      "fouls": "(Int, Int)?",
+      "points": "(Int, Int)?",
+      "knockdowns": "(Int, Int)?",
+      "setsWon": "(Int, Int)?",
+      "yellowCards": "(Int, Int)?",
+      "isFirstWinner": "Bool?" // nil - не сыграли, true - победил первый, false - победил второй
     }
   },
 
   "POST /api/v1/MatchStats/{id}": {
-    "description": "Отправить статистику матчей по id турнира",
+    "description": "Отправить список со статистикой матчей по id турнира",
     "params": {
       "id": "String"
     },
     "body": {
       "tournamentID": "String",
+      "matchID": "String"
+      "first": "User" // User - (id, nme, surname, patronymic, phoneNumber, email, hashedPassword, dateOfBirth, age, sex, weight, height, creatdAt, bio, avatarUrl, admin)
+      "second": "User"
       "sport": "String?",
-      "timePlayed": "hashmap{"String": "Double"}",
-      "goals": "hashmap{"String": "Int"}",
-      "assists": "hashmap{"String": "Int"}",
-      "fouls": "hashmap{"String": "Int"}",
-      "points": "hashmap{"String": "Int"}",
-      "knockdowns": "hashmap{"String": "Int"}",
-      "setsWon": "hashmap{"String": "Int"}",
-      "yellowCards": "hashmap{"String": "Int"}",
-      "wins": "hashmap{"String": "Int"}",
-      "loses": "hashmap{"String": "Int"}",
-      "winnerID": "String?"
+      "timePlayed": "Int?",
+      "goals": "(Int, Int)?", //список из двух интов
+      "assists": "(Int, Int)?",
+      "fouls": "(Int, Int)?",
+      "points": "(Int, Int)?",
+      "knockdowns": "(Int, Int)?",
+      "setsWon": "(Int, Int)?",
+      "yellowCards": "(Int, Int)?",
+      "isFirstWinner": "Bool?" // nil - не сыграли, true - победил первый, false - победил второй
     }
   },
 
@@ -100,22 +102,9 @@
     },
     "response": {
       "sport": "String?",
-      "wins": "Int?",
-      "loses": "Int?",
-      "matches": "Int?",
-      "bigWins": "Int?",
+      "totalWins": "Int?",
+      "totalLoses": "Int?",
       "winrate": "Int?"  // число 0-100
-    }
-  },
-
-  "GET /api/v1/tournir/set/{id}": {
-    "description": "Получение списка пар людей, которые будут соревноваться",
-    "params": {
-      "id": "String"
-    },
-    "response": {
-      "first": "User" //User это (id, name, surname, patronymic, phoneNumber, email, hashedPassword, dateOfBirth, age, sex, weight, height, createdAt, bio, avatarUrl, admin)
-      "second": "User"
     }
   }
 }
