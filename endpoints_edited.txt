@@ -57,16 +57,16 @@
     "response": {
       "tournamentID": "String",
       "sport": "String?",
-      "timePlayed": { "String": "Double" },
-      "goals": { "String": "Int" },
-      "assists": { "String": "Int" },
-      "fouls": { "String": "Int" },
-      "points": { "String": "Int" },
-      "knockdowns": { "String": "Int" },
-      "setsWon": { "String": "Int" },
-      "yellowCards": { "String": "Int" },
-      "wins": { "String": "Int" },
-      "loses": { "String": "Int" },
+      "timePlayed": "hashmap{"String": "Double"}",
+      "goals": "hashmap{"String": "Int"}",
+      "assists": "hashmap{"String": "Int"}",
+      "fouls": "hashmap{"String": "Int"}",
+      "points": "hashmap{"String": "Int"}",
+      "knockdowns": "hashmap{"String": "Int"}",
+      "setsWon": "hashmap{"String": "Int"}",
+      "yellowCards": "hashmap{"String": "Int"}",
+      "wins": "hashmap{"String": "Int"}",
+      "loses": "hashmap{"String": "Int"}",
       "winnerID": "String?"
     }
   },
@@ -79,16 +79,16 @@
     "body": {
       "tournamentID": "String",
       "sport": "String?",
-      "timePlayed": { "String": "Double" },
-      "goals": { "String": "Int" },
-      "assists": { "String": "Int" },
-      "fouls": { "String": "Int" },
-      "points": { "String": "Int" },
-      "knockdowns": { "String": "Int" },
-      "setsWon": { "String": "Int" },
-      "yellowCards": { "String": "Int" },
-      "wins": { "String": "Int" },
-      "loses": { "String": "Int" },
+      "timePlayed": "hashmap{"String": "Double"}",
+      "goals": "hashmap{"String": "Int"}",
+      "assists": "hashmap{"String": "Int"}",
+      "fouls": "hashmap{"String": "Int"}",
+      "points": "hashmap{"String": "Int"}",
+      "knockdowns": "hashmap{"String": "Int"}",
+      "setsWon": "hashmap{"String": "Int"}",
+      "yellowCards": "hashmap{"String": "Int"}",
+      "wins": "hashmap{"String": "Int"}",
+      "loses": "hashmap{"String": "Int"}",
       "winnerID": "String?"
     }
   },
@@ -111,7 +111,7 @@
   "GET /api/v1/tournir/set/{id}": {
     "description": "Получение списка пар людей, которые будут соревноваться",
     "params": {
-      "id": "String" // tournir id
+      "id": "String"
     },
     "response": {
       "id": "String",
