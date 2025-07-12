@@ -122,7 +122,7 @@ struct TournirsDetail: View {
         
         let newState = TournirInstaseState.nextState(currentTournir.tournirInstanteState)
         
-        if let index = viewModel2.tournirs.firstIndex(of: currentTournir) {
+        if let index = viewModel2.tournirs.firstIndex(where: { $0.id == currentTournir.id }) {
             viewModel2.tournirs[index].tournirInstanteState = newState
         }
         
@@ -132,7 +132,7 @@ struct TournirsDetail: View {
     
     var scale: some View {
         Group {
-            if coordinator.currentTournir!.currentMatch <= matchs {
+            if coordinator.currentTournir!.currentMatch < matchs {
                 VStack {
                     HStack {
                         ForEach(0..<matchs, id: \.self) { match in
