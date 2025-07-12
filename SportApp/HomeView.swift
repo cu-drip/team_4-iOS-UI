@@ -58,6 +58,7 @@ struct HomeView: View {
                     .navigationDestination(for: Tournir.self) { detail in
                         TournirsDetail()
                             .environmentObject(coordinator)
+                            .environmentObject(viewModelOfTournirs)
                     }
             }
             .tabItem {
@@ -71,6 +72,7 @@ struct HomeView: View {
                     .navigationDestination(for: Tournir.self) { detail in
                         TournirsDetail()
                             .environmentObject(coordinator)
+                            .environmentObject(viewModelOfTournirs)
                     }
             }
             .tabItem {

@@ -23,18 +23,65 @@ struct Tournir: Codable, Identifiable, Hashable {
     var organizer_id: UUID
     var users: [User] = []
     var requirements: Requirements
-    var tournirInstaseState: TournirInstaseState = .openedRegistrationTournaments
+    var tournirInstanteState: TournirInstaseState
+    var currentMatch: Int = 0
+    let matchs: Int
+    
+    init(
+        id: UUID = UUID(),
+        title: String,
+        description: String,
+        sport: String,
+        type_group: TypeTournir,
+        type_tournir: TypeIsTeam,
+        start_time: Date,
+        created_at: Date,
+        entry_cost: Double,
+        is_team_based: Bool,
+        place: String,
+        max_participants: Int,
+        organizer_id: UUID,
+        users: [User] = [],
+        requirements: Requirements,
+        tournirInstaseState: TournirInstaseState = .openedRegistrationTournaments
+    ) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.sport = sport
+        self.type_group = type_group
+        self.type_tournir = type_tournir
+        self.start_time = start_time
+        self.created_at = created_at
+        self.entry_cost = entry_cost
+        self.is_team_based = is_team_based
+        self.place = place
+        self.max_participants = max_participants
+        self.organizer_id = organizer_id
+        self.users = users
+        self.requirements = requirements
+        self.matchs = Int(ceil(log2(Double(max_participants))))
+        self.tournirInstanteState = tournirInstaseState
+        
+        self.max_participants = nextPowerOfTwo(max_participants)
+    }
+    
+    func nextPowerOfTwo(_ number: Int) -> Int {
+        guard number > 0 else { return 1 }
+        let exponent = log2(Double(number - 1)).rounded(.up)
+        return Int(pow(2.0, exponent))
+    }
 }
 
 enum TournirInstaseState: String, Codable, Identifiable, Hashable {
-    case pastTournament
+    case endedTournaments
     case ongoingTournaments
     case closedRegistrationTournaments
     case openedRegistrationTournaments
     
     var id: Int {
         switch self {
-        case .pastTournament:
+        case .endedTournaments:
             return 1
         case .ongoingTournaments:
             return 2
@@ -52,11 +99,13 @@ enum TournirInstaseState: String, Codable, Identifiable, Hashable {
         case .closedRegistrationTournaments:
             return .ongoingTournaments
         case .ongoingTournaments:
-            return .pastTournament
-        case .pastTournament:
-            return .pastTournament
+            return .endedTournaments
+        case .endedTournaments:
+            return .endedTournaments
         }
     }
+    
+    static let list: [TournirInstaseState] = [.openedRegistrationTournaments, .closedRegistrationTournaments, .ongoingTournaments, .endedTournaments]
 }
 
 struct Requirements: Codable, Hashable {

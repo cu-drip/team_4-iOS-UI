@@ -19,70 +19,21 @@ struct StatisticsView: View {
     var body: some View {
         VStack {
             ScrollView {
-                VStack {
-                    Text("openedRegistrationTournaments")
-                    
-                    ForEach(tournirs, id: \.id) { tournir in
-                        if tournir.tournirInstaseState == .openedRegistrationTournaments {
-                            TournirCell(tournir: tournir)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 3)
-                                .onTapGesture {
-                                    coordinator.tournirListPath = NavigationPath()
-                                    coordinator.currentTournir = tournir
-                                    coordinator.statListPath.append(tournir)
-                                }
-                        }
-                    }
-                }
-                
-                VStack {
-                    Text("closedRegistrationTournaments")
-                    
-                    ForEach(tournirs, id: \.id) { tournir in
-                        if tournir.tournirInstaseState == .closedRegistrationTournaments {
-                            TournirCell(tournir: tournir)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 3)
-                                .onTapGesture {
-                                    coordinator.tournirListPath = NavigationPath()
-                                    coordinator.currentTournir = tournir
-                                    coordinator.statListPath.append(tournir)
-                                }
-                        }
-                    }
-                }
-                
-                VStack {
-                    Text("ongoingTournaments")
-                    
-                    ForEach(tournirs, id: \.id) { tournir in
-                        if tournir.tournirInstaseState == .ongoingTournaments {
-                            TournirCell(tournir: tournir)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 3)
-                                .onTapGesture {
-                                    coordinator.tournirListPath = NavigationPath()
-                                    coordinator.currentTournir = tournir
-                                    coordinator.statListPath.append(tournir)
-                                }
-                        }
-                    }
-                }
-                
-                VStack {
-                    Text("pastTournament")
-                    
-                    ForEach(tournirs, id: \.id) { tournir in
-                        if tournir.tournirInstaseState == .pastTournament {
-                            TournirCell(tournir: tournir)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 3)
-                                .onTapGesture {
-                                    coordinator.tournirListPath = NavigationPath()
-                                    coordinator.currentTournir = tournir
-                                    coordinator.statListPath.append(tournir)
-                                }
+                ForEach(TournirInstaseState.list, id: \.id) { state in
+                    VStack {
+                        Text(state.rawValue)
+                        
+                        ForEach(tournirs, id: \.id) { tournir in
+                            if tournir.tournirInstanteState == state {
+                                TournirCell(tournir: tournir)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 3)
+                                    .onTapGesture {
+                                        coordinator.tournirListPath = NavigationPath()
+                                        coordinator.currentTournir = tournir
+                                        coordinator.statListPath.append(tournir)
+                                    }
+                            }
                         }
                     }
                 }

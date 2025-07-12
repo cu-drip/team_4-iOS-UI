@@ -43,7 +43,7 @@ class StatisticViewModel: ObservableObject {
                 organizer_id: UUID(),
                 users: [user],
                 requirements: Requirements(),
-                tournirInstaseState: .pastTournament
+                tournirInstaseState: .endedTournaments
             ),
 
             // 2. Турнир идёт

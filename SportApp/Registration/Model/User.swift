@@ -96,3 +96,10 @@ enum UserCodingKeys: String {
     case mmr
     case bio
 }
+
+struct PairAxoroms: Identifiable, Hashable, Codable {
+    var id = UUID()
+    var first: User
+    var second: User
+    var isFirstWinner: Bool?
+}
