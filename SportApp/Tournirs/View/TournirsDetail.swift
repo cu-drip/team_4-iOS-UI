@@ -73,23 +73,10 @@ struct TournirsDetail: View {
                 .frame(height: 1)
                 .padding(.horizontal, 12)
             
-            if coordinator.user.isAdmin == false {
-                List {
-                    HStack {
-                        Text("Участники")
-                            .padding(.leading)
-                        
-                        Spacer()
-                    }
-                    ScrollView {
-                        ForEach(viewModel.participants, id: \.id) { participant in
-                            Text(participant.phio)
-                                .padding()
-                        }
-                    }
-                }
-            } else {
+            if coordinator.currentTournir!.tournirInstanteState != .openedRegistrationTournaments {
                 scale
+            } else {
+                participantsView
             }
             
             if coordinator.user.isAdmin == false {
@@ -105,24 +92,12 @@ struct TournirsDetail: View {
                         .padding()
                 }
             } else {
-                if coordinator.currentTournir!.tournirInstanteState == .endedTournaments {
+                if coordinator.currentTournir!.tournirInstanteState == .ongoingTournaments || coordinator.currentTournir!.tournirInstanteState == .endedTournaments {
                     Text(coordinator.currentTournir!.tournirInstanteState.rawValue)
                         .padding()
                 } else {
                     Button(action: {
-                        // сохранять в нормальное место
-                        guard var currentTournir = coordinator.currentTournir else {
-                            return
-                        }
-                        
-                        let newState = TournirInstaseState.nextState(currentTournir.tournirInstanteState)
-                        
-                        if let index = viewModel2.tournirs.firstIndex(of: currentTournir) {
-                            viewModel2.tournirs[index].tournirInstanteState = newState
-                        }
-                        
-                        currentTournir.tournirInstanteState = newState
-                        coordinator.currentTournir = currentTournir
+                        updateInstanceState()
                     }, label: {
                         Text(coordinator.currentTournir!.tournirInstanteState.rawValue)
                             .padding()
@@ -138,6 +113,21 @@ struct TournirsDetail: View {
             viewModel.setParticipants()
             viewModel.setAxoroms()
         }
+    }
+    
+    private func updateInstanceState() {
+        guard var currentTournir = coordinator.currentTournir else {
+            return
+        }
+        
+        let newState = TournirInstaseState.nextState(currentTournir.tournirInstanteState)
+        
+        if let index = viewModel2.tournirs.firstIndex(of: currentTournir) {
+            viewModel2.tournirs[index].tournirInstanteState = newState
+        }
+        
+        currentTournir.tournirInstanteState = newState
+        coordinator.currentTournir = currentTournir
     }
     
     var scale: some View {
@@ -177,6 +167,7 @@ struct TournirsDetail: View {
                                             Image(systemName: "square")
                                         }
                                     }
+                                    .disabled(!coordinator.user.isAdmin || coordinator.currentTournir!.tournirInstanteState == .closedRegistrationTournaments)
                                 }
                                 
                                 Rectangle()
@@ -200,6 +191,7 @@ struct TournirsDetail: View {
                                             Image(systemName: "square")
                                         }
                                     }
+                                    .disabled(!coordinator.user.isAdmin || coordinator.currentTournir!.tournirInstanteState == .closedRegistrationTournaments)
                                 }
                             }
                             .padding(.horizontal, 16)
@@ -210,7 +202,7 @@ struct TournirsDetail: View {
                             .padding(.vertical, 8)
                         }
                         
-                        Button("FFFFFFFFF мне за труд ибо я зaебался это писать") {
+                        Button("FFFFFFFFF мне за труд ибо я устал это писать") {
                             var c = 0
                             for i in viewModel.axoroms {
                                 if i.isFirstWinner != nil {
@@ -232,6 +224,9 @@ struct TournirsDetail: View {
                         Text("Победитель Влад")
                     }
                 }
+                .onAppear() {
+                    updateInstanceState()
+                }
             }
         }
     }
@@ -242,6 +237,23 @@ struct TournirsDetail: View {
             return "Финал"
         default:
             return "1/\(number)"
+        }
+    }
+    
+    var participantsView: some View {
+        List {
+            HStack {
+                Text("Участники")
+                    .padding(.leading)
+                
+                Spacer()
+            }
+            ScrollView {
+                ForEach(viewModel.participants, id: \.id) { participant in
+                    Text(participant.phio)
+                        .padding()
+                }
+            }
         }
     }
 }
