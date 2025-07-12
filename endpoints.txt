@@ -51,7 +51,6 @@ points: [String: Int]?
 knockdowns: [String: Int]?
 setsWon: [String: Int]?
 yellowCards: [String: Int]?
-pauses: [String: Int]?
 wins: [String: Int]?
 loses: [String: Int]?
 winnerID: String?
@@ -70,7 +69,6 @@ points: [String: Int]?
 knockdowns: [String: Int]?
 setsWon: [String: Int]?
 yellowCards: [String: Int]?
-pauses: [String: Int]?
 wins: [String: Int]?
 loses: [String: Int]?
 winnerID: String?
@@ -100,4 +98,3 @@ registrationDeadline: String?
 place: String?
 organizedId: String?
 tournirInstantState: String
-
