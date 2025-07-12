@@ -132,7 +132,7 @@ struct TournirsDetail: View {
     
     var scale: some View {
         Group {
-            if coordinator.currentTournir!.currentMatch < matchs {
+            if coordinator.currentTournir!.currentMatch < matchs || viewModel.winner != nil {
                 VStack {
                     HStack {
                         ForEach(0..<matchs, id: \.self) { match in
@@ -167,7 +167,7 @@ struct TournirsDetail: View {
                                             Image(systemName: "square")
                                         }
                                     }
-                                    .disabled(!coordinator.user.isAdmin || coordinator.currentTournir!.tournirInstanteState == .closedRegistrationTournaments)
+                                    .disabled(!coordinator.user.isAdmin || coordinator.currentTournir!.tournirInstanteState == .closedRegistrationTournaments || coordinator.currentTournir!.tournirInstanteState == .endedTournaments)
                                 }
                                 
                                 Rectangle()
@@ -191,7 +191,7 @@ struct TournirsDetail: View {
                                             Image(systemName: "square")
                                         }
                                     }
-                                    .disabled(!coordinator.user.isAdmin || coordinator.currentTournir!.tournirInstanteState == .closedRegistrationTournaments)
+                                    .disabled(!coordinator.user.isAdmin || coordinator.currentTournir!.tournirInstanteState == .closedRegistrationTournaments || coordinator.currentTournir!.tournirInstanteState == .endedTournaments)
                                 }
                             }
                             .padding(.horizontal, 16)
@@ -213,6 +213,9 @@ struct TournirsDetail: View {
                                 coordinator.currentTournir!.currentMatch += 1
                                 viewModel.remakeAxoroms()
                             }
+                            if coordinator.currentTournir!.currentMatch == matchs {
+                                updateInstanceState()
+                            }
                         }
                     }
                 }
@@ -223,9 +226,6 @@ struct TournirsDetail: View {
                     } else {
                         Text("Победитель Влад")
                     }
-                }
-                .onAppear() {
-                    updateInstanceState()
                 }
             }
         }
