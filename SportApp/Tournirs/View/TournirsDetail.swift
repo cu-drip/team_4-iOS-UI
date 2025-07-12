@@ -132,7 +132,7 @@ struct TournirsDetail: View {
     
     var scale: some View {
         Group {
-            if coordinator.currentTournir!.currentMatch < matchs || viewModel.winner != nil {
+            if coordinator.currentTournir!.currentMatch < matchs {
                 VStack {
                     HStack {
                         ForEach(0..<matchs, id: \.self) { match in
@@ -213,7 +213,7 @@ struct TournirsDetail: View {
                                 coordinator.currentTournir!.currentMatch += 1
                                 viewModel.remakeAxoroms()
                             }
-                            if coordinator.currentTournir!.currentMatch == matchs {
+                            if coordinator.currentTournir!.currentMatch >= matchs {
                                 updateInstanceState()
                             }
                         }
