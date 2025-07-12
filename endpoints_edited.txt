@@ -114,21 +114,8 @@
       "id": "String"
     },
     "response": {
-      "id": "String",
-      "title": "String?",
-      "description": "String?",
-      "sport": "String?",
-      "typeTournament": "String?",
-      "typeGroup": "String?",
-      "matchesNumbers": "Int?",
-      "startTime": "String?",
-      "createdAt": "String?",
-      "entryCost": "Double?",
-      "maxParticipants": "Int?",
-      "registrationDeadline": "String?",
-      "place": "String?",
-      "organizedId": "String?",
-      "tournirInstantState": "String"
+      "first": "User" //User это (id, name, surname, patronymic, phoneNumber, email, hashedPassword, dateOfBirth, age, sex, weight, height, createdAt, bio, avatarUrl, admin)
+      "second": "User"
     }
   }
 }
