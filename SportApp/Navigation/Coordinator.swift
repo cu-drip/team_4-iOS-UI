@@ -10,6 +10,7 @@ import Combine
 
 class Coordinator: ObservableObject {
     @Published var tournirListPath = NavigationPath()
+    @Published var statListPath = NavigationPath()
     @Published var presentedSheet: ModalSheet?
     @Published var user: User = User(id: UUID(), phio: "", password: "", email: "", isAdmin: false)
     @Published var currentTournir: Tournir?

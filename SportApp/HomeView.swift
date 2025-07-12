@@ -58,6 +58,7 @@ struct HomeView: View {
                     .navigationDestination(for: Tournir.self) { detail in
                         TournirsDetail()
                             .environmentObject(coordinator)
+                            .environmentObject(viewModelOfTournirs)
                     }
             }
             .tabItem {
@@ -65,8 +66,14 @@ struct HomeView: View {
             }
             .tag(0) // исправить потом
             
-            NavigationStack() {
-                EmptyView()
+            NavigationStack(path: $coordinator.statListPath) {
+                StatisticsView(viewModelOfStatistic: StatisticViewModel(tournirsVM: viewModelOfTournirs, coordinator: coordinator))
+                    .environmentObject(coordinator)
+                    .navigationDestination(for: Tournir.self) { detail in
+                        TournirsDetail()
+                            .environmentObject(coordinator)
+                            .environmentObject(viewModelOfTournirs)
+                    }
             }
             .tabItem {
                 Label("Мои матчи", systemImage: "pawprint.circle.fill")

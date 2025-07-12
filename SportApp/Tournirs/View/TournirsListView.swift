@@ -41,6 +41,7 @@ struct TournirsListView: View {
                         .padding(.horizontal, 16)
                         .padding(.vertical, 3)
                         .onTapGesture {
+                            coordinator.statListPath = NavigationPath()
                             coordinator.currentTournir = tournir
                             coordinator.tournirListPath.append(tournir)
                         }

@@ -9,7 +9,11 @@ import SwiftUI
 
 struct TournirsDetail: View {
     @EnvironmentObject var coordinator: Coordinator
+    @EnvironmentObject var viewModel2: TournirsViewModel
     @StateObject var viewModel = ParticipantsViewModel()
+    
+    @State var matchs: Int = 0
+    @State var participants: [User] = []
     
     var body: some View {
         VStack {
@@ -69,20 +73,23 @@ struct TournirsDetail: View {
                 .frame(height: 1)
                 .padding(.horizontal, 12)
             
-            
-            List {
-                HStack {
-                    Text("Участники")
-                        .padding(.leading)
-                    
-                    Spacer()
-                }
-                ScrollView {
-                    ForEach(viewModel.participants, id: \.id) { participant in
-                        Text(participant.name)
-                            .padding()
+            if coordinator.user.isAdmin == false {
+                List {
+                    HStack {
+                        Text("Участники")
+                            .padding(.leading)
+                        
+                        Spacer()
+                    }
+                    ScrollView {
+                        ForEach(viewModel.participants, id: \.id) { participant in
+                            Text(participant.phio)
+                                .padding()
+                        }
                     }
                 }
+            } else {
+                scale
             }
             
             if coordinator.user.isAdmin == false {
@@ -97,13 +104,144 @@ struct TournirsDetail: View {
                     Text("Зарегистрироваться")
                         .padding()
                 }
+            } else {
+                if coordinator.currentTournir!.tournirInstanteState == .endedTournaments {
+                    Text(coordinator.currentTournir!.tournirInstanteState.rawValue)
+                        .padding()
+                } else {
+                    Button(action: {
+                        // сохранять в нормальное место
+                        guard var currentTournir = coordinator.currentTournir else {
+                            return
+                        }
+                        
+                        let newState = TournirInstaseState.nextState(currentTournir.tournirInstanteState)
+                        
+                        if let index = viewModel2.tournirs.firstIndex(of: currentTournir) {
+                            viewModel2.tournirs[index].tournirInstanteState = newState
+                        }
+                        
+                        currentTournir.tournirInstanteState = newState
+                        coordinator.currentTournir = currentTournir
+                    }, label: {
+                        Text(coordinator.currentTournir!.tournirInstanteState.rawValue)
+                            .padding()
+                    })
+                }
             }
             Spacer()
         }
         .navigationTitle("О соревновании")
         .onAppear() {
-            viewModel.loadParticipants(for: coordinator.currentTournir!.id.uuidString)
+            //viewModel.loadParticipants(for: coordinator.currentTournir!.id.uuidString)
+            matchs = coordinator.currentTournir!.matchs
+            viewModel.setParticipants()
+            viewModel.setAxoroms()
         }
-
+    }
+    
+    var scale: some View {
+        Group {
+            if coordinator.currentTournir!.currentMatch <= matchs {
+                VStack {
+                    HStack {
+                        ForEach(0..<matchs, id: \.self) { match in
+                            let roundNumber = Int(pow(2.0, Double(self.matchs - match - 1)))
+                            let title = self.getTitle(for: roundNumber)
+                            Spacer()
+                            
+                            Text(title)
+                                .frame(width: 80, height: 30)
+                                .background(match == coordinator.currentTournir!.currentMatch ? Color.green : Color.gray)
+                            
+                            Spacer()
+                        }
+                    }
+                    
+                    ScrollView {
+                        ForEach(viewModel.axoroms, id: \.id) { axoroms in
+                            VStack {
+                                HStack {
+                                    Text(axoroms.first.phio)
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        if let index = viewModel.axoroms.firstIndex(of: axoroms) {
+                                            viewModel.axoroms[index].isFirstWinner = true
+                                        }
+                                    }) {
+                                        if let index = viewModel.axoroms.firstIndex(of: axoroms) {
+                                            Image(systemName: (viewModel.axoroms[index].isFirstWinner ?? false) ? "checkmark.square" : "square")
+                                        } else {
+                                            Image(systemName: "square")
+                                        }
+                                    }
+                                }
+                                
+                                Rectangle()
+                                    .fill(Color(red: 123/255, green: 123/255, blue: 123/255))
+                                    .frame(height: 1)
+                                    .padding(.horizontal, 12)
+                                
+                                HStack {
+                                    Text(axoroms.second.phio)
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        if let index = viewModel.axoroms.firstIndex(of: axoroms) {
+                                            viewModel.axoroms[index].isFirstWinner = false
+                                        }
+                                    }) {
+                                        if let index = viewModel.axoroms.firstIndex(of: axoroms) {
+                                            Image(systemName: !(viewModel.axoroms[index].isFirstWinner ?? true) ? "checkmark.square" : "square")
+                                        } else {
+                                            Image(systemName: "square")
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(Color.gray)
+                            .cornerRadius(8)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                        }
+                        
+                        Button("FFFFFFFFF мне за труд ибо я зaебался это писать") {
+                            var c = 0
+                            for i in viewModel.axoroms {
+                                if i.isFirstWinner != nil {
+                                    c += 1
+                                }
+                            }
+                            if c == viewModel.axoroms.count {
+                                coordinator.currentTournir!.currentMatch += 1
+                                viewModel.remakeAxoroms()
+                            }
+                        }
+                    }
+                }
+            } else {
+                VStack {
+                    if let winner = viewModel.winner {
+                        Text("Победитель \(winner.phio)")
+                    } else {
+                        Text("Победитель Влад")
+                    }
+                }
+            }
+        }
+    }
+    
+    private func getTitle(for number: Int) -> String {
+        switch number {
+        case 1:
+            return "Финал"
+        default:
+            return "1/\(number)"
+        }
     }
 }
