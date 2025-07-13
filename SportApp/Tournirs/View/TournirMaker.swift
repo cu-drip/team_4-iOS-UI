@@ -177,7 +177,7 @@ struct TournirMaker: View {
                 Spacer()
                 
                 Button(action: {
-                    let tourinr: Tournir = Tournir(id: UUID(), title: name, description: description, sport: Sport.toStringEng(Sport.allSports[selectedSport]), type_group: .olympic, type_tournir: .solo, start_time: combinedDateTime, created_at: Date(), entry_cost: Double(cost) ?? 0, is_team_based: true, place: "", max_participants: 16, organizer_id: coordinator.user.id, requirements: Requirements())
+                    let tourinr: Tournir = Tournir(id: UUID(), title: name, description: description, sport: Sport.toStringEng(Sport.allSports[selectedSport]), type_group: .olympic, type_tournir: .solo, start_time: combinedDateTime, created_at: Date(), entry_cost: Double(cost) ?? 0, is_team_based: true, place: "", max_participants: 16, organizer_id: coordinator.user.id, requirements: Requirements(), tournirInstaseState: .openedRegistrationTournaments)
                     viewModel.tournirs.append(tourinr)
                     viewModel.giveTournir(tournir: tourinr)
                     coordinator.dismissSheet()

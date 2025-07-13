@@ -32,6 +32,7 @@ class Coordinator: ObservableObject {
         if currentTournir != nil{
             print(currentTournir!.users)
         }
+        giveTournir()
     }
     
     func updateUser() {
@@ -49,6 +50,25 @@ class Coordinator: ObservableObject {
                     requestDTO: userRequest
                 )
                 //print(respone)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func giveTournir(userID: String? = nil, tournirID: String? = nil) {
+        Task {
+            let tournirID: String = tournirID ?? (currentTournir!.id.uuidString)
+            let userID: String = userID ?? (user.id.uuidString)
+            let postPartisipantEndpoint = PostPartisipantEndpoint(userId: userID, tournirId: tournirID)
+            let postPartisipantRequest = PostPartisipantRequest()
+            print(postPartisipantEndpoint.path)
+            do {
+                let respone: String = try await NetworkService.shared.request(
+                    endpoint: postPartisipantEndpoint,
+                    requestDTO: postPartisipantRequest
+                )
+                print(respone)
             } catch {
                 print(error)
             }

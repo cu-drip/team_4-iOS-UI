@@ -6,7 +6,7 @@ struct RegistrationShieldView: View {
     @Binding var isAuthenticated: Bool
     
     @State var phio: String = ""
-    @State var email: String = "1@1.ru"
+    @State var email: String = "GPT@moment.ru"
     @State var password: String = ""
     @State var passwordCheck: String = ""
     @State var isLogInPressed = false

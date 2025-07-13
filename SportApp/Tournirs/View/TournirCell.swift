@@ -20,7 +20,7 @@ struct TournirCell: View {
     var body: some View {
         VStack {
             HStack {
-                Text(tournir.title)
+                Text(tournir.title == "" ? "Без названия" : tournir.title)
                     .font(.system(size: 20, weight: .bold))
                     .lineLimit(1)
                     .padding(.trailing, 30)

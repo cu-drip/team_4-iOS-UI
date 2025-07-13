@@ -21,6 +21,7 @@ struct TournirPostRequest: Encodable {
     var registrationDeadline: String?
     var place: String?
     var organizedId: String
+    var tournirInstantState: String
     
     init(tournir: Tournir) {
         title = tournir.title
@@ -33,5 +34,15 @@ struct TournirPostRequest: Encodable {
         organizedId = tournir.organizer_id.uuidString
         typeTournament = TypeIsTeam.toString(tournir.type_tournir)
         typeGroup = TypeTournir.toString(tournir.type_group)
+        tournirInstantState = tournir.tournirInstanteState.rawValue
+    }
+    
+    init (title: String, typeGroup: String, typeTournament: String, sport: String, organizedId: String, tournirInstantState: String) {
+        self.title = title
+        self.typeGroup = typeGroup
+        self.sport = sport
+        self.organizedId = organizedId
+        self.tournirInstantState = tournirInstantState
+        self.typeTournament = typeTournament
     }
 }
