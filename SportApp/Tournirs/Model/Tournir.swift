@@ -26,6 +26,7 @@ struct Tournir: Codable, Identifiable, Hashable {
     var tournirInstanteState: TournirInstaseState
     var currentMatch: Int = 0
     let matchs: Int
+    var winner: User?
     
     init(
         id: UUID = UUID(),
@@ -43,7 +44,8 @@ struct Tournir: Codable, Identifiable, Hashable {
         organizer_id: UUID,
         users: [User] = [],
         requirements: Requirements,
-        tournirInstaseState: TournirInstaseState = .openedRegistrationTournaments
+        tournirInstaseState: TournirInstaseState = .openedRegistrationTournaments,
+        winner: User? = nil
     ) {
         self.id = id
         self.title = title
@@ -64,6 +66,7 @@ struct Tournir: Codable, Identifiable, Hashable {
         self.tournirInstanteState = tournirInstaseState
         
         self.max_participants = nextPowerOfTwo(max_participants)
+        self.winner = winner
     }
     
     func nextPowerOfTwo(_ number: Int) -> Int {
