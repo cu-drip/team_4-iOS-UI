@@ -149,7 +149,7 @@ struct RegistrationShieldView: View {
                     }, label: {
                         if coordinator.user.isAdmin == false {
                             VStack {
-                                Text("Вы входите как пользователь")
+                                Text("Вы входите как участник")
                                     .foregroundColor(Color(red: 25/255, green: 33/255, blue: 38/255))
                                 HStack {
                                     Text("Нет аккаунта? ")

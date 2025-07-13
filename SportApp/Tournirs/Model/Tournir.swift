@@ -23,7 +23,7 @@ struct Tournir: Codable, Identifiable, Hashable {
     var organizer_id: UUID
     var users: [User] = []
     var requirements: Requirements
-    var tournirInstanteState: TournirInstaseState
+    var tournirInstanteState: TournirInstantState
     var currentMatch: Int = 0
     let matchs: Int
     var winner: User?
@@ -44,7 +44,7 @@ struct Tournir: Codable, Identifiable, Hashable {
         organizer_id: UUID,
         users: [User] = [],
         requirements: Requirements,
-        tournirInstaseState: TournirInstaseState = .openedRegistrationTournaments,
+        tournirInstaseState: TournirInstantState = .openedRegistrationTournaments,
         winner: User? = nil
     ) {
         self.id = id
@@ -76,7 +76,7 @@ struct Tournir: Codable, Identifiable, Hashable {
     }
 }
 
-enum TournirInstaseState: String, Codable, Identifiable, Hashable {
+enum TournirInstantState: String, Codable, Identifiable, Hashable {
     case endedTournaments
     case ongoingTournaments
     case closedRegistrationTournaments
@@ -94,8 +94,33 @@ enum TournirInstaseState: String, Codable, Identifiable, Hashable {
             return 4
         }
     }
-    
-    static func nextState(_ state: TournirInstaseState) -> TournirInstaseState {
+    static func toString(_ state: TournirInstantState) -> String {
+        switch state {
+        case .endedTournaments:
+            return "Завершенные соревнования"
+        case .ongoingTournaments:
+            return "Проходит сейчас"
+        case .closedRegistrationTournaments:
+            return "Закончилась регистация"
+        case .openedRegistrationTournaments:
+            return "Идёт регистрация"
+        }
+    }
+    static func fromString(_ string: String) -> TournirInstantState {
+        switch string {
+        case "Завершенные соревнования":
+            return .endedTournaments
+        case "Проходит сейчас":
+            return .ongoingTournaments
+        case "Закончилась регистация":
+            return .closedRegistrationTournaments
+        case "Идёт регистрация":
+            return .openedRegistrationTournaments
+        default:
+            return .openedRegistrationTournaments
+        }
+    }
+    static func nextState(_ state: TournirInstantState) -> TournirInstantState {
         switch state {
         case .openedRegistrationTournaments:
             return .closedRegistrationTournaments
@@ -108,7 +133,7 @@ enum TournirInstaseState: String, Codable, Identifiable, Hashable {
         }
     }
     
-    static let list: [TournirInstaseState] = [.openedRegistrationTournaments, .closedRegistrationTournaments, .ongoingTournaments, .endedTournaments]
+    static let list: [TournirInstantState] = [.openedRegistrationTournaments, .closedRegistrationTournaments, .ongoingTournaments, .endedTournaments]
 }
 
 struct Requirements: Codable, Hashable {

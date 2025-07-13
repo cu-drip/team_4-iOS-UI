@@ -124,7 +124,7 @@ struct TournirsDetail: View {
             return
         }
         
-        let newState = TournirInstaseState.nextState(currentTournir.tournirInstanteState)
+        let newState = TournirInstantState.nextState(currentTournir.tournirInstanteState)
         
         if let index = viewModel2.tournirs.firstIndex(where: { $0.id == currentTournir.id }) {
             viewModel2.tournirs[index].tournirInstanteState = newState
@@ -223,7 +223,7 @@ struct TournirsDetail: View {
                             .padding(.vertical, 8)
                         }
                         
-                        Button("FFFFFFFFF мне за труд ибо я устал это писать") {
+                        Button("Далее") {
                             var c = 0
                             for i in viewModel.axoroms {
                                 if i.isFirstWinner != nil {
@@ -265,16 +265,15 @@ struct TournirsDetail: View {
     
     var participantsView: some View {
         List {
-            HStack {
-                Text("Участники")
-                    .padding(.leading)
-                
-                Spacer()
-            }
+            Text("Участники")
             ScrollView {
                 ForEach(viewModel.participants, id: \.id) { participant in
-                    Text(participant.phio)
-                        .padding()
+                    HStack {
+                        Text(participant.phio)
+                            .padding(.leading)
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
                 }
             }
         }
