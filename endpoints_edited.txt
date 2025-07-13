@@ -1,0 +1,110 @@
+{
+  "GET /api/v1/tournir/list/{id}": {
+    "description": "Получить список турниров, на которые зарегистрирован участник по id участника",
+    "params": {
+      "id": "String"
+    },
+    "response": [
+      {
+        "id": "String",
+        "title": "String?",
+        "description": "String?",
+        "sport": "String?",
+        "typeTournament": "String?",
+        "typeGroup": "String?",
+        "matchesNumbers": "Int?",
+        "startTime": "String?",
+        "createdAt": "String?",
+        "entryCost": "Double?",
+        "maxParticipants": "Int?",
+        "registrationDeadline": "String?",
+        "place": "String?",
+        "organizedId": "String?",
+        "tournirInstantState": "String"
+      }
+    ]
+  },
+
+  "POST /api/v1/tournir/{id}": {
+    "description": "Отправить информацию о турнире по его id при изменении состояния турнира",
+    "params": {
+      "id": "String"
+    },
+    "body": {
+      "id": "String",
+      "title": "String?",
+      "description": "String?",
+      "sport": "String?",
+      "typeTournament": "String?",
+      "typeGroup": "String?",
+      "matchesNumbers": "Int?",
+      "startTime": "String?",
+      "createdAt": "String?",
+      "entryCost": "Double?",
+      "maxParticipants": "Int?",
+      "registrationDeadline": "String?",
+      "place": "String?",
+      "organizedId": "String?",
+      "tournirInstantState": "String"
+    }
+  },
+
+  "GET /api/v1/MatchStats/{id}": {
+    "description": "Получить список матчей с их статистикой по id турнира",
+    "params": {
+      "id": "String"
+    },
+    "response": {
+      "tournamentID": "String",
+      "matchID": "String"
+      "first": "User" // User - (id, nme, surname, patronymic, phoneNumber, email, hashedPassword, dateOfBirth, age, sex, weight, height, creatdAt, bio, avatarUrl, admin)
+      "second": "User"
+      "sport": "String?",
+      "timePlayed": "Int?",
+      "goals": "(Int, Int)?", // список из двух интов
+      "assists": "(Int, Int)?",
+      "fouls": "(Int, Int)?",
+      "points": "(Int, Int)?",
+      "knockdowns": "(Int, Int)?",
+      "setsWon": "(Int, Int)?",
+      "yellowCards": "(Int, Int)?",
+      "isFirstWinner": "Bool?" // nil - не сыграли, true - победил первый, false - победил второй
+    }
+  },
+
+  "POST /api/v1/MatchStats/{id}": {
+    "description": "Отправить список со статистикой матчей по id турнира",
+    "params": {
+      "id": "String"
+    },
+    "body": {
+      "tournamentID": "String",
+      "matchID": "String"
+      "first": "User" // User - (id, nme, surname, patronymic, phoneNumber, email, hashedPassword, dateOfBirth, age, sex, weight, height, creatdAt, bio, avatarUrl, admin)
+      "second": "User"
+      "sport": "String?",
+      "timePlayed": "Int?",
+      "goals": "(Int, Int)?", //список из двух интов
+      "assists": "(Int, Int)?",
+      "fouls": "(Int, Int)?",
+      "points": "(Int, Int)?",
+      "knockdowns": "(Int, Int)?",
+      "setsWon": "(Int, Int)?",
+      "yellowCards": "(Int, Int)?",
+      "isFirstWinner": "Bool?" // nil - не сыграли, true - победил первый, false - победил второй
+    }
+  },
+
+  "GET /api/v1/user/stat/{id}": {
+    "description": "Получить общую статистику пользователя по его id",
+    "params": {
+      "id": "String"
+    },
+    "response": {
+      "sport": "String?",
+      "totalWins": "Int?",
+      "totalLoses": "Int?",
+      "winrate": "Int?"  // число 0-100
+    }
+  }
+}
