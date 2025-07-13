@@ -112,6 +112,10 @@ struct TournirsDetail: View {
             matchs = coordinator.currentTournir!.matchs
             viewModel.setParticipants()
             viewModel.setAxoroms()
+            if let index = viewModel2.tournirs.firstIndex(where: { $0.id == coordinator.currentTournir!.id }) {
+                // починить подгрузку турнира
+                coordinator.currentTournir!.winner = viewModel2.tournirs[index].winner
+            }
         }
     }
     
@@ -130,9 +134,26 @@ struct TournirsDetail: View {
         coordinator.currentTournir = currentTournir
     }
     
+    private func updateWinner() {
+        guard var currentTournir = coordinator.currentTournir else {
+            return
+        }
+        
+        guard let newState = viewModel.winner else {
+            return
+        }
+        
+        if let index = viewModel2.tournirs.firstIndex(where: { $0.id == currentTournir.id }) {
+            viewModel2.tournirs[index].winner = newState
+        }
+        
+        currentTournir.winner = newState
+        coordinator.currentTournir = currentTournir
+    }
+    
     var scale: some View {
         Group {
-            if coordinator.currentTournir!.currentMatch < matchs {
+            if coordinator.currentTournir!.currentMatch < matchs && coordinator.currentTournir!.winner == nil {
                 VStack {
                     HStack {
                         ForEach(0..<matchs, id: \.self) { match in
@@ -215,13 +236,15 @@ struct TournirsDetail: View {
                             }
                             if coordinator.currentTournir!.currentMatch >= matchs {
                                 updateInstanceState()
+                                updateWinner()
                             }
                         }
+                        .disabled(!coordinator.user.isAdmin || coordinator.currentTournir!.tournirInstanteState == .closedRegistrationTournaments || coordinator.currentTournir!.tournirInstanteState == .endedTournaments)
                     }
                 }
             } else {
                 VStack {
-                    if let winner = viewModel.winner {
+                    if let winner = coordinator.currentTournir!.winner {
                         Text("Победитель \(winner.phio)")
                     } else {
                         Text("Победитель Влад")
