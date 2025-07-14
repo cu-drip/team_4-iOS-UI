@@ -64,11 +64,13 @@ struct Tournir: Codable, Identifiable, Hashable {
         self.requirements = requirements
         self.matchs = 0
         if max_participants > 0 {
+            
             let logValue = log2(Double(max_participants))
             if logValue.isFinite {
                 matchs = Int(ceil(logValue))
             }
         }
+
         self.tournirInstanteState = tournirInstaseState
         
         self.max_participants = nextPowerOfTwo(max_participants)

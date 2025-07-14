@@ -164,6 +164,7 @@ struct TournirsDetail: View {
                             Text(title)
                                 .frame(width: 80, height: 30)
                                 .background(match == coordinator.currentTournir!.currentMatch ? Color.green : Color.gray)
+                                .cornerRadius(10)
                             
                             Spacer()
                         }
@@ -193,8 +194,7 @@ struct TournirsDetail: View {
                                 
                                 Rectangle()
                                     .fill(Color(red: 123/255, green: 123/255, blue: 123/255))
-                                    .frame(height: 1)
-                                    .padding(.horizontal, 12)
+                                    .frame(width: 375, height: 1)
                                 
                                 HStack {
                                     Text(axoroms.second.phio)
@@ -217,7 +217,7 @@ struct TournirsDetail: View {
                             }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 8)
-                            .background(Color.gray)
+                            .background(Color(red: 230/255, green: 230/255, blue: 230/255))
                             .cornerRadius(8)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 8)
@@ -247,7 +247,7 @@ struct TournirsDetail: View {
                     if let winner = coordinator.currentTournir!.winner {
                         Text("Победитель \(winner.phio)")
                     } else {
-                        Text("Победитель Влад")
+                        Text("У вас недостаточно участников для начала соревнования")
                     }
                 }
             }
@@ -265,7 +265,11 @@ struct TournirsDetail: View {
     
     var participantsView: some View {
         List {
-            Text("Участники")
+            HStack{
+                Spacer()
+                Text("Участники")
+                Spacer()
+            }
             ScrollView {
                 ForEach(viewModel.participants, id: \.id) { participant in
                     HStack {
