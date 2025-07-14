@@ -102,6 +102,7 @@ struct TournirsDetail: View {
                         Text(coordinator.currentTournir!.tournirInstanteState.rawValue)
                             .padding()
                     })
+                    .disabled(coordinator.currentTournir!.organizer_id != coordinator.user.id)
                 }
             }
             Spacer()
