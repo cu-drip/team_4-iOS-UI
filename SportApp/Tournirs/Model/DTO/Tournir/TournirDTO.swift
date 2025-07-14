@@ -22,6 +22,7 @@ struct TournirDTO: Codable {
     var registrationDeadline: String?
     var place: String?
     var organizedId: String?
+    var tournirInstantState: String?
     
     init(tournir: Tournir) {
         id = tournir.id.uuidString
@@ -33,6 +34,7 @@ struct TournirDTO: Codable {
         registrationDeadline = nil
         place = tournir.place
         organizedId = tournir.organizer_id.uuidString
+        tournirInstantState = tournir.tournirInstanteState.rawValue
     }
 }
 
