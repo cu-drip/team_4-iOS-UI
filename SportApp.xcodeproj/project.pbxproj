@@ -39,16 +39,28 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				Statistics/Model/DTO/ReggedDTO.swift,
 			);
 			target = 310422A32E14371C00D64B73 /* SportApp */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		CE544C352E214C5B0044B6B1 /* Exceptions for "SportApp" folder in "Copy Bundle Resources" phase from "SportApp" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 310422A22E14371C00D64B73 /* Resources */;
+			membershipExceptions = (
+				Statistics/Model/DTO/ReggedDTO.swift,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		310422A62E14371C00D64B73 /* SportApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				319C0E342E168DEF00BF7D83 /* Exceptions for "SportApp" folder in "SportApp" target */,
+				CE544C352E214C5B0044B6B1 /* Exceptions for "SportApp" folder in "Copy Bundle Resources" phase from "SportApp" target */,
 			);
 			path = SportApp;
 			sourceTree = "<group>";

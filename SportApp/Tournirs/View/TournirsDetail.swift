@@ -125,7 +125,7 @@ struct TournirsDetail: View {
             return
         }
         
-        let newState = TournirInstaseState.nextState(currentTournir.tournirInstanteState)
+        let newState = TournirInstantState.nextState(currentTournir.tournirInstanteState)
         
         if let index = viewModel2.tournirs.firstIndex(where: { $0.id == currentTournir.id }) {
             viewModel2.tournirs[index].tournirInstanteState = newState
@@ -165,6 +165,7 @@ struct TournirsDetail: View {
                             Text(title)
                                 .frame(width: 80, height: 30)
                                 .background(match == coordinator.currentTournir!.currentMatch ? Color.green : Color.gray)
+                                .cornerRadius(10)
                             
                             Spacer()
                         }
@@ -194,8 +195,7 @@ struct TournirsDetail: View {
                                 
                                 Rectangle()
                                     .fill(Color(red: 123/255, green: 123/255, blue: 123/255))
-                                    .frame(height: 1)
-                                    .padding(.horizontal, 12)
+                                    .frame(width: 375, height: 1)
                                 
                                 HStack {
                                     Text(axoroms.second.phio)
@@ -218,13 +218,13 @@ struct TournirsDetail: View {
                             }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 8)
-                            .background(Color.gray)
+                            .background(Color(red: 230/255, green: 230/255, blue: 230/255))
                             .cornerRadius(8)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 8)
                         }
                         
-                        Button("FFFFFFFFF мне за труд ибо я устал это писать") {
+                        Button("Далее") {
                             var c = 0
                             for i in viewModel.axoroms {
                                 if i.isFirstWinner != nil {
@@ -248,7 +248,7 @@ struct TournirsDetail: View {
                     if let winner = coordinator.currentTournir!.winner {
                         Text("Победитель \(winner.phio)")
                     } else {
-                        Text("Победитель Влад")
+                        Text("У вас недостаточно участников для начала соревнования")
                     }
                 }
             }
@@ -266,16 +266,19 @@ struct TournirsDetail: View {
     
     var participantsView: some View {
         List {
-            HStack {
+            HStack{
+                Spacer()
                 Text("Участники")
-                    .padding(.leading)
-                
                 Spacer()
             }
             ScrollView {
                 ForEach(viewModel.participants, id: \.id) { participant in
-                    Text(participant.phio)
-                        .padding()
+                    HStack {
+                        Text(participant.phio)
+                            .padding(.leading)
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
                 }
             }
         }
