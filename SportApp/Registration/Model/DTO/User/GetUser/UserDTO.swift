@@ -14,7 +14,7 @@ struct UserDTO: Codable {
     var patronymic: String?
     var phoneNumber: String?
     var email: String
-    var hashedPassword: String
+    var hashedPassword: String?
     var dateOfBirth: String?
     var age: Int?
     var sex: String?
@@ -28,7 +28,7 @@ struct UserDTO: Codable {
     init(user: User) {
         self.id = user.id.uuidString
         self.email = user.email
-        self.hashedPassword = user.password
+        //self.hashedPassword = user.password
         self.admin = user.isAdmin
 
         let components = user.phio.split(separator: " ", omittingEmptySubsequences: false)
