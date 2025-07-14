@@ -36,7 +36,7 @@ struct User: Identifiable, Hashable, Codable {
         self.phio = fullName
 
         self.phone = dto.phoneNumber
-        self.password = dto.hashedPassword
+        self.password = ""
         self.email = dto.email
         self.dateOfBirth = Self.dateFormatter.date(from: dto.dateOfBirth ?? "")
         self.age = dto.age

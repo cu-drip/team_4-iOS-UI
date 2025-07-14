@@ -72,9 +72,9 @@ class RegistrationViewModel: ObservableObject {
                 
                 await MainActor.run {
                     self.token = newToken
-                    //print(self.token ?? "nil")
+                    print(self.token ?? "nil")
                     NetworkService.shared.token = token
-                    KeyСhainManager.shared.saveToken(newToken)
+                    //KeyСhainManager.shared.saveToken(newToken)
                     //UserDefaults.standard.set(newToken, forKey: "auth_token")
                     //JWTDecodeFunc(jwt: newToken)
                     //print(getTokenExpiration(newToken))
